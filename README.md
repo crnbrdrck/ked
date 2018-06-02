@@ -4,6 +4,8 @@ The first scripting language of [The People's Republic of Cork](http://en.wikipe
 
 See the [documentation](http://adam-lynch.github.io/ked/) (maintained at the [gh-pages](https://github.com/adam-lynch/ked/tree/gh-pages) branch).
 
+This interpreter is being built by [crnbrdrck](https://github.com/crnbrdrck) in the wonderful Crystal Programming Language by following [this tutorial](https://ruslanspivak.com/lsbasi-part1/)
+
 ## Installation
 
 TODO: Write installation instructions here
