@@ -25,6 +25,7 @@ module Ked
 
       # Get the character at our current position and create a Token based on it
       char = text[@pos]
+      # Ignore whitespace
       while char == ' '
         @pos += 1
         char = text[@pos]
@@ -38,6 +39,9 @@ module Ked
       elsif char == '+'
         @pos += 1
         return Token.new TokenType::PLUS, char
+      elsif char == '-'
+        @pos += 1
+        return Token.new TokenType::MINUS, char
       end
       self.error
     end
@@ -60,17 +64,26 @@ module Ked
       left = @current_token.not_nil!
       self.eat TokenType::INTEGER
 
-      # Now we expect a PLUS symbol
+      # Now we expect a PLUS or a MINUS symbol
       op = @current_token.not_nil!
-      self.eat TokenType::PLUS
+      begin
+        self.eat TokenType::PLUS
+      rescue
+        # If attempting to eat a PLUS symbol doesn't work, try a MINUS symbol instead
+        self.eat TokenType::MINUS
+      end
 
       # Lastly we expect another single digit integer
       right = @current_token.not_nil!
       self.eat TokenType::INTEGER
       # After this our current_token should be an EOF token
 
-      # At this point, an INTEGER PLUS INTEGER sequence of tokens has been found and this method can just return the result of adding the two integers, thus effectively interpreting the user's input
-      left.value.not_nil!.to_i + right.value.not_nil!.to_i
+      # At this point, an INTEGER PLUS|MINUS INTEGER sequence of tokens has been found and this method can just return the result of adding|subtractig the two integers, thus effectively interpreting the user's input
+      if op.token_type == TokenType::PLUS
+        left.value.not_nil!.to_i + right.value.not_nil!.to_i
+      elsif op.token_type == TokenType::MINUS
+        left.value.not_nil!.to_i - right.value.not_nil!.to_i
+      end
     end
   end
 end

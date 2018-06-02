@@ -3,6 +3,7 @@ module Ked
   enum TokenType
     INTEGER
     PLUS
+    MINUS
     EOF
   end
 
