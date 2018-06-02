@@ -1,6 +1,8 @@
 # ked
 
-TODO: Write a description here
+The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
+
+See the [documentation](http://adam-lynch.github.io/ked/) (maintained at the [gh-pages](https://github.com/adam-lynch/ked/tree/gh-pages) branch).
 
 ## Installation
 
@@ -24,4 +26,7 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Ciaran Broderick - creator, maintainer
+Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/adam-lynch/ked/issues) and emails. [List of contributors](https://github.com/adam-lynch/ked/wiki/Contributors)
+
+- [adam-lynch](https://github.com/adam-lynch/) - original designer of the Ked language
+- [crnbrdrck](https://github.com/crnbrdrck) Ciaran Broderick - developed interpreter in crystal
