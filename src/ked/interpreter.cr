@@ -3,7 +3,7 @@ module Ked
   class Interpreter
     @text : String
     @pos : Int64 = 0_i64
-    @current_token : Token | Nil = nil
+    @current_token : Token = Token.new TokenType::SOF, '\u{0}'
 
     def initialize(@text : String)
     end
@@ -20,7 +20,7 @@ module Ked
 
       # If our current position has gone past the end of our text, return our EOF token as there is no more input to read
       if @pos > text.size - 1
-        return Token.new TokenType::EOF, nil
+        return Token.new TokenType::EOF, '\u{0}'
       end
 
       # Get the character at our current position and create a Token based on it
@@ -55,7 +55,7 @@ module Ked
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
     def eat(token_type : TokenType)
-      if @current_token.not_nil!.token_type == token_type
+      if @current_token.token_type == token_type
         @current_token = self.get_next_token
       else
         self.error
@@ -67,11 +67,11 @@ module Ked
       # Set current token to first token from text
       @current_token = self.get_next_token
       # We expect the current token to be a single digit integer
-      left = @current_token.not_nil!
+      left = @current_token
       self.eat TokenType::INTEGER
 
       # Now we expect a PLUS or a MINUS symbol
-      op = @current_token.not_nil!
+      op = @current_token
       begin
         self.eat TokenType::PLUS
       rescue
@@ -80,15 +80,15 @@ module Ked
       end
 
       # Lastly we expect another single digit integer
-      right = @current_token.not_nil!
+      right = @current_token
       self.eat TokenType::INTEGER
       # After this our current_token should be an EOF token
 
       # At this point, an INTEGER PLUS|MINUS INTEGER sequence of tokens has been found and this method can just return the result of adding|subtractig the two integers, thus effectively interpreting the user's input
       if op.token_type == TokenType::PLUS
-        left.value.not_nil!.to_i + right.value.not_nil!.to_i
+        left.value.to_i + right.value.to_i
       elsif op.token_type == TokenType::MINUS
-        left.value.not_nil!.to_i - right.value.not_nil!.to_i
+        left.value.to_i - right.value.to_i
       end
     end
   end

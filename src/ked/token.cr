@@ -1,13 +1,14 @@
 # TODO: Documentation
 module Ked
   enum TokenType
+    SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Interpreter
     INTEGER
     PLUS
     MINUS
     EOF
   end
 
-  alias TokenValue = Char | Int32 | Nil
+  alias TokenValue = Char | Int32
 
   class Token
     getter token_type : TokenType
