@@ -25,6 +25,10 @@ module Ked
 
       # Get the character at our current position and create a Token based on it
       char = text[@pos]
+      while char == ' '
+        @pos += 1
+        char = text[@pos]
+      end
 
       # Read what the current token is, create a Token if we can from it, incremement our current position and return the Token
       # If no token can be created from the input, raise an error
