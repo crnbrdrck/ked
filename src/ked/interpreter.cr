@@ -34,8 +34,15 @@ module Ked
       # Read what the current token is, create a Token if we can from it, incremement our current position and return the Token
       # If no token can be created from the input, raise an error
       if char.to_i?
+        digits = [char]
         @pos += 1
-        return Token.new TokenType::INTEGER, char.to_i
+        # Handle multiple digit integers
+        until @pos == text.size || !text[@pos].to_i?
+          digits << text[@pos]
+          @pos += 1
+        end
+        number = digits.join("").to_i
+        return Token.new TokenType::INTEGER, number
       elsif char == '+'
         @pos += 1
         return Token.new TokenType::PLUS, char
@@ -59,7 +66,6 @@ module Ked
     def expr
       # Set current token to first token from text
       @current_token = self.get_next_token
-
       # We expect the current token to be a single digit integer
       left = @current_token.not_nil!
       self.eat TokenType::INTEGER
