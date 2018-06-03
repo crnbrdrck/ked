@@ -1,1 +1,6 @@
 language: crystal
+
+jobs:
+  include:
+    - stage: test
+      script: crystal spec

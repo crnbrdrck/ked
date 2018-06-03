@@ -1,4 +1,5 @@
 # ked
+![Travis Master Status](https://img.shields.io/travis/crnbrdrck/ked/master.svg)
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
