@@ -72,6 +72,11 @@ describe Ked::Interpreter do
       interpreter.expr.should eq 2
     end
 
+    it "should handle multiple additions and subtractions" do
+      interpreter = Ked::Interpreter.new "3 + 3 + 3 - 7"
+      interpreter.expr.should eq 2
+    end
+
     it "should throw an error if the expression does match either of these patterns" do
       interpreter = Ked::Interpreter.new "7 x 3"
       expect_raises(Exception) do
