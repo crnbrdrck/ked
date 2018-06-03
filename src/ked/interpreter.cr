@@ -62,6 +62,9 @@ module Ked
         elsif @current_char == '-'
           self.advance
           return Token.new TokenType::MINUS, '-'
+        elsif @current_char == '*'
+          self.advance
+          return Token.new TokenType::MULTIPLY, '*'
         end
         self.error
       end
@@ -77,7 +80,7 @@ module Ked
       end
     end
 
-    # `expr -> INTEGER PLUS INTEGER`
+    # `expr -> INTEGER OPERATOR INTEGER`
     def expr
       # Set current token to first token from text
       @current_token = self.get_next_token
@@ -87,11 +90,13 @@ module Ked
 
       # Now we expect a PLUS or a MINUS symbol
       op = @current_token
-      begin
+      case op.token_type
+      when TokenType::PLUS
         self.eat TokenType::PLUS
-      rescue
-        # If attempting to eat a PLUS symbol doesn't work, try a MINUS symbol instead
+      when TokenType::MINUS
         self.eat TokenType::MINUS
+      when TokenType::MULTIPLY
+        self.eat TokenType::MULTIPLY
       end
 
       # Lastly we expect another single digit integer
@@ -99,11 +104,14 @@ module Ked
       self.eat TokenType::INTEGER
       # After this our current_token should be an EOF token
 
-      # At this point, an INTEGER PLUS|MINUS INTEGER sequence of tokens has been found and this method can just return the result of adding|subtractig the two integers, thus effectively interpreting the user's input
-      if op.token_type == TokenType::PLUS
-        left.value.to_i + right.value.to_i
-      elsif op.token_type == TokenType::MINUS
-        left.value.to_i - right.value.to_i
+      # At this point, an INTEGER OPERATOR INTEGER sequence of tokens has been found and this method can just return the result of running the operator on the two integers, thus effectively interpreting the user's input
+      case op.token_type
+      when TokenType::PLUS
+        return left.value.to_i + right.value.to_i
+      when TokenType::MINUS
+        return left.value.to_i - right.value.to_i
+      when TokenType::MULTIPLY
+        return left.value.to_i * right.value.to_i
       end
     end
   end

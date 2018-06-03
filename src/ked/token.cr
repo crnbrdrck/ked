@@ -6,6 +6,7 @@ module Ked
     # Operators
     PLUS
     MINUS
+    MULTIPLY
     # Other Stuff
     SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Interpreter
     EOF
