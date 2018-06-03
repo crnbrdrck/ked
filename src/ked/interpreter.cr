@@ -93,6 +93,32 @@ module Ked
 
       # Now we expect a PLUS or a MINUS symbol
       op = @current_token
+      self.eat_operator op
+
+      # Lastly we expect another single digit integer
+      right = @current_token
+      self.eat TokenType::INTEGER
+      # After this our current_token should be an EOF token
+
+      # At this point, an INTEGER OPERATOR INTEGER sequence of tokens has been found and this method can just return the result of running the operator on the two integers, thus effectively interpreting the user's input
+      result = self.handle_expression left.value.to_i, op, right.value.to_i
+
+      # Now keep going while the text is not finished
+      while @current_token.token_type != TokenType::EOF
+        op = @current_token
+        self.eat_operator op
+        right = @current_token
+        if right.token_type == TokenType::EOF
+          next
+        end
+        self.eat TokenType::INTEGER
+        # Now add this new right number to the result
+        result = self.handle_expression result, op, right.value.to_i
+      end
+      result
+    end
+
+    def eat_operator(op : Token)
       case op.token_type
       when TokenType::PLUS
         self.eat TokenType::PLUS
@@ -103,23 +129,21 @@ module Ked
       when TokenType::DIVIDE
         self.eat TokenType::DIVIDE
       end
+    end
 
-      # Lastly we expect another single digit integer
-      right = @current_token
-      self.eat TokenType::INTEGER
-      # After this our current_token should be an EOF token
-
-      # At this point, an INTEGER OPERATOR INTEGER sequence of tokens has been found and this method can just return the result of running the operator on the two integers, thus effectively interpreting the user's input
+    def handle_expression(left : Int, op : Token, right : Int) : Int
+      result = 0
       case op.token_type
       when TokenType::PLUS
-        return left.value.to_i + right.value.to_i
+        result += left + right
       when TokenType::MINUS
-        return left.value.to_i - right.value.to_i
+        result += left - right
       when TokenType::MULTIPLY
-        return left.value.to_i * right.value.to_i
+        result += left * right
       when TokenType::DIVIDE
-        return left.value.to_i / right.value.to_i
+        result += left / right
       end
+      return result
     end
   end
 end
