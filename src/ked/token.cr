@@ -20,5 +20,9 @@ module Ked
     def to_s
       "Token(#{self.token_type}, #{self.value})"
     end
+
+    def ==(other : self)
+      self.token_type == other.token_type && self.value == other.value
+    end
   end
 end
