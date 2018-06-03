@@ -1,10 +1,13 @@
 # TODO: Documentation
 module Ked
   enum TokenType
-    SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Interpreter
+    # Data Types
     INTEGER
+    # Operators
     PLUS
     MINUS
+    # Other Stuff
+    SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Interpreter
     EOF
   end
 
