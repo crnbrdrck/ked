@@ -67,6 +67,11 @@ describe Ked::Interpreter do
       interpreter.expr.should eq 21
     end
 
+    it "should be successfully be able to handle an expression of INTEGER DIVIDE INTEGER and return the correct value" do
+      interpreter = Ked::Interpreter.new "6 / 3"
+      interpreter.expr.should eq 2
+    end
+
     it "should throw an error if the expression does match either of these patterns" do
       interpreter = Ked::Interpreter.new "7 x 3"
       expect_raises(Exception) do
