@@ -65,6 +65,9 @@ module Ked
         elsif @current_char == '*'
           self.advance
           return Token.new TokenType::MULTIPLY, '*'
+        elsif @current_char == '/'
+          self.advance
+          return Token.new TokenType::DIVIDE, '/'
         end
         self.error
       end
@@ -97,6 +100,8 @@ module Ked
         self.eat TokenType::MINUS
       when TokenType::MULTIPLY
         self.eat TokenType::MULTIPLY
+      when TokenType::DIVIDE
+        self.eat TokenType::DIVIDE
       end
 
       # Lastly we expect another single digit integer
@@ -112,6 +117,8 @@ module Ked
         return left.value.to_i - right.value.to_i
       when TokenType::MULTIPLY
         return left.value.to_i * right.value.to_i
+      when TokenType::DIVIDE
+        return left.value.to_i / right.value.to_i
       end
     end
   end
