@@ -3,7 +3,7 @@ language: crystal
 jobs:
   include:
     - stage: test
-      script: crystal spec
+      script: crystal spec -v
 
 notifications:
   email: false
