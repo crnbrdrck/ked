@@ -7,7 +7,11 @@ module Ked
     @current_token : Token = Token.new TokenType::SOF, '\u{0}'
 
     def initialize(@text : String)
-      @current_char = @text[@pos]
+      if @text.size != 0
+        @current_char = @text[@pos]
+      else
+        @current_char = '\u{0}'
+      end
     end
 
     def error
