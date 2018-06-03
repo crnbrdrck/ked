@@ -2,55 +2,66 @@
 module Ked
   class Interpreter
     @text : String
+    @current_char : Char
     @pos : Int64 = 0_i64
     @current_token : Token = Token.new TokenType::SOF, '\u{0}'
 
     def initialize(@text : String)
+      @current_char = @text[@pos]
     end
 
     def error
       raise "Error parsing input"
     end
 
+    # Advance the 'pos' pointer and set the 'current_char' variable
+    def advance
+      @pos += 1
+      if @pos > @text.size - 1
+        @current_char = '\u{0}'
+      else
+        @current_char = @text[@pos]
+      end
+    end
+
+    def skip_whitespace
+      while @current_char != '\u{0}' && @current_char == ' '
+        self.advance
+      end
+    end
+
+    # Return a multidigit integer consumed from the text
+    def get_integer : Int
+      result = [] of Char
+      while @current_char != '\u{0}' && @current_char.to_i?
+        result << @current_char
+        self.advance
+      end
+      result.join("").to_i
+    end
+
     # Lexical analyser (also known as scanner or tokeniser)
     #
     # This method is responsible for breaking a sentence apart into tokens. One token at a time.
     def get_next_token : Token
-      text = @text
-
-      # If our current position has gone past the end of our text, return our EOF token as there is no more input to read
-      if @pos > text.size - 1
-        return Token.new TokenType::EOF, '\u{0}'
-      end
-
-      # Get the character at our current position and create a Token based on it
-      char = text[@pos]
-      # Ignore whitespace
-      while char == ' '
-        @pos += 1
-        char = text[@pos]
-      end
-
-      # Read what the current token is, create a Token if we can from it, incremement our current position and return the Token
-      # If no token can be created from the input, raise an error
-      if char.to_i?
-        digits = [char]
-        @pos += 1
-        # Handle multiple digit integers
-        until @pos == text.size || !text[@pos].to_i?
-          digits << text[@pos]
-          @pos += 1
+      # Loop through and generate tokens from the text
+      while @current_char != '\u{0}'
+        # Check for whitespace first
+        if @current_char == ' '
+          self.skip_whitespace
+          next
+        elsif @current_char.to_i?
+          return Token.new TokenType::INTEGER, self.get_integer
+        elsif @current_char == '+'
+          self.advance
+          return Token.new TokenType::PLUS, '+'
+        elsif @current_char == '-'
+          self.advance
+          return Token.new TokenType::MINUS, '-'
         end
-        number = digits.join("").to_i
-        return Token.new TokenType::INTEGER, number
-      elsif char == '+'
-        @pos += 1
-        return Token.new TokenType::PLUS, char
-      elsif char == '-'
-        @pos += 1
-        return Token.new TokenType::MINUS, char
+        self.error
       end
-      self.error
+      Token.new TokenType::EOF, '\u{0}'
     end
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
