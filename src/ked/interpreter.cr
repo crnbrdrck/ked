@@ -111,6 +111,12 @@ module Ked
         when TokenType::MINUS
           self.eat TokenType::MINUS
           result -= self.term
+        when TokenType::MULTIPLY
+          self.eat TokenType::MULTIPLY
+          result *= self.term
+        when TokenType::DIVIDE
+          self.eat TokenType::DIVIDE
+          result /= self.term
         end
       end
       # Return the result
