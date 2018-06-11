@@ -20,15 +20,15 @@ describe Ked::Interpreter do
   end
 
   describe "expr" do
-    # it "should be successfully be able to handle an expression of INTEGER PLUS INTEGER and return the correct value" do
-    #   interpreter = Ked::Interpreter.new "3 + 3"
-    #   interpreter.expr.should eq 6
-    # end
+    it "should be successfully be able to handle an expression of INTEGER ADD INTEGER and return the correct value" do
+      interpreter = Ked::Interpreter.new "3 + 3"
+      interpreter.expr.should eq 6
+    end
 
-    # it "should be successfully be able to handle an expression of INTEGER MINUS INTEGER and return the correct value" do
-    #   interpreter = Ked::Interpreter.new "7 - 3"
-    #   interpreter.expr.should eq 4
-    # end
+    it "should be successfully be able to handle an expression of INTEGER SUBTRACT INTEGER and return the correct value" do
+      interpreter = Ked::Interpreter.new "7 - 3"
+      interpreter.expr.should eq 4
+    end
 
     it "should be successfully be able to handle an expression of INTEGER MULTIPLY INTEGER and return the correct value" do
       interpreter = Ked::Interpreter.new "7 * 3"
@@ -40,10 +40,15 @@ describe Ked::Interpreter do
       interpreter.expr.should eq 2
     end
 
-    # it "should handle multiple additions and subtractions" do
-    #   interpreter = Ked::Interpreter.new "3 + 3 + 3 - 7"
-    #   interpreter.expr.should eq 2
-    # end
+    it "should handle multiple additions and subtractions" do
+      interpreter = Ked::Interpreter.new "3 + 3 + 3 - 7"
+      interpreter.expr.should eq 2
+    end
+
+    it "should be able to handle complex arithmetic expressions using BEMDAS rule" do
+      interpreter = Ked::Interpreter.new "14 + 2 * 3 - 6 / 2"
+      interpreter.expr.should eq 17
+    end
 
     it "should throw an error if the expression does match either of these patterns" do
       interpreter = Ked::Interpreter.new "7 x 3"
