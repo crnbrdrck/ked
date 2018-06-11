@@ -2,7 +2,8 @@
 module Ked
   # Grammar rules
   # expr:   term ((ADD | SUB) term)*
-  # term:   factor ((MUL | DIV) factor)*
+  # term:   paren ((MUL | DIV) paren)*
+  # paren:  (OPEN_PAREN)? factor ((ADD | SUB | MUL | DIV | paren) factor CLOSE_PAREN)*
   # factor: INTEGER
   class Interpreter
     @lexer : Lexer
@@ -48,24 +49,62 @@ module Ked
       result
     end
 
-    # term: factor ((MUL | DIV) factor)*
+    # term: paren ((MUL | DIV) paren)*
     def term : Int
       token_types = [
         TokenType::MULTIPLY,
         TokenType::DIVIDE,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
-      result = self.factor
+      result = self.paren
       while token_types.includes? @current_token.token_type
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::MULTIPLY
           self.eat TokenType::MULTIPLY
-          result *= self.factor
+          result *= self.paren
         elsif @current_token.token_type == TokenType::DIVIDE
           self.eat TokenType::DIVIDE
-          result /= self.factor
+          result /= self.paren
         end
       end
+      result
+    end
+
+    # paren: (OPEN_PAREN)? factor ((ADD | SUB | MUL | DIV | OPEN_PAREN) paren CLOSE_PAREN)*
+    def paren : Int
+      # First check if the current token is a parentheses
+      if @current_token.token_type != TokenType::OPEN_PAREN
+        return self.factor
+      end
+      # If it is then we need to do some handling
+      token_types = [
+        TokenType::ADD,
+        TokenType::SUBTRACT,
+        TokenType::MULTIPLY,
+        TokenType::DIVIDE,
+      ]
+      self.eat TokenType::OPEN_PAREN
+      result = self.factor
+      while token_types.includes? @current_token.token_type
+        case @current_token.token_type
+        # If it is ADD, SUB, MUL or DIV, just do the maths, else recursively call paren
+        when TokenType::ADD
+          self.eat TokenType::ADD
+          result += self.paren
+        when TokenType::SUBTRACT
+          self.eat TokenType::SUBTRACT
+          result -= self.paren
+        when TokenType::MULTIPLY
+          self.eat TokenType::MULTIPLY
+          result *= self.paren
+        when TokenType::DIVIDE
+          self.eat TokenType::DIVIDE
+          result /= self.paren
+        end
+      end
+      # Ensure the syntax is correct by closing the parentheses
+      self.eat TokenType::CLOSE_PAREN
+      # Return the result
       result
     end
 
