@@ -65,6 +65,12 @@ module Ked
         elsif @current_char == '/'
           self.advance
           return Token.new TokenType::DIVIDE, '/'
+        elsif @current_char == '('
+          self.advance
+          return Token.new TokenType::OPEN_PAREN, '('
+        elsif @current_char == ')'
+          self.advance
+          return Token.new TokenType::CLOSE_PAREN, ')'
         end
         self.error
       end
