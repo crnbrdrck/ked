@@ -7,7 +7,7 @@ module Ked
       ""
     end
 
-    def visit
+    def visit : Int
       raise "No visit method defined for #{self.class.name}"
     end
   end
