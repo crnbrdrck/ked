@@ -5,5 +5,9 @@ module Ked
     def initialize(@token : Token)
       @value = @token.value
     end
+
+    def to_s
+      "Num(#{@value})"
+    end
   end
 end

@@ -4,5 +4,9 @@ module Ked
     def initialize(@left : AST, @token : Token, @right : AST)
       @op = @token
     end
+
+    def to_s
+      "(#{@left.to_s} #{@token.value} #{@right.to_s})"
+    end
   end
 end
