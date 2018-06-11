@@ -9,38 +9,6 @@ describe Ked::Interpreter do
     end
   end
 
-  describe "get_next_token" do
-    it "should return the EOF token when the text is empty" do
-      expected = Ked::Token.new Ked::TokenType::EOF, '\u{0}'
-      Ked::Interpreter.new("").get_next_token.should eq expected
-    end
-
-    it "should ignore whitespace in the text" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 3
-      Ked::Interpreter.new("    3").get_next_token.should eq expected
-    end
-
-    it "should return the correct type of token for an INTEGER" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 3
-      Ked::Interpreter.new("3").get_next_token.should eq expected
-    end
-
-    it "should be able to handle multi digit integers" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 420
-      Ked::Interpreter.new("420").get_next_token.should eq expected
-    end
-
-    it "should return the correct type of token for addition" do
-      expected = Ked::Token.new Ked::TokenType::PLUS, '+'
-      Ked::Interpreter.new("+").get_next_token.should eq expected
-    end
-
-    it "should return the correct type of token for subtraction" do
-      expected = Ked::Token.new Ked::TokenType::MINUS, '-'
-      Ked::Interpreter.new("-").get_next_token.should eq expected
-    end
-  end
-
   describe "eat" do
     it "should raise an error when the expected type does not match the current type" do
       interpreter = Ked::Interpreter.new ""
