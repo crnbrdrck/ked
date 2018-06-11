@@ -15,7 +15,7 @@ while true
   end
   if text
     # Try and interpret the text
-    interpreter = Ked::Interpreter.new text
-    puts interpreter.expr
+    parser = Ked::Parser.new text
+    puts parser.expr.to_s
   end
 end

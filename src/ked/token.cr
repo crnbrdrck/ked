@@ -12,7 +12,7 @@ module Ked
     OPEN_PAREN
     CLOSE_PAREN
     # Other Stuff
-    SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Interpreter
+    SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Parser
     EOF
   end
 
