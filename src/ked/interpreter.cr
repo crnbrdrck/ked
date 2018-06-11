@@ -83,38 +83,37 @@ module Ked
       end
     end
 
-    # `expr -> INTEGER OPERATOR INTEGER`
+    # Get the next integer
+    def term : Int
+      token = @current_token
+      self.eat TokenType::INTEGER
+      return token.value.to_i
+    end
+
+    # Parser / Interpreter
     def expr
       # Set current token to first token from text
       @current_token = self.get_next_token
-      # We expect the current token to be a single digit integer
-      left = @current_token
-      self.eat TokenType::INTEGER
 
-      # Now we expect a PLUS or a MINUS symbol
-      op = @current_token
-      self.eat_operator op
-
-      # Lastly we expect another single digit integer
-      right = @current_token
-      self.eat TokenType::INTEGER
-      # After this our current_token should be an EOF token
-
-      # At this point, an INTEGER OPERATOR INTEGER sequence of tokens has been found and this method can just return the result of running the operator on the two integers, thus effectively interpreting the user's input
-      result = self.handle_expression left.value.to_i, op, right.value.to_i
-
-      # Now keep going while the text is not finished
-      while @current_token.token_type != TokenType::EOF
-        op = @current_token
-        self.eat_operator op
-        right = @current_token
-        if right.token_type == TokenType::EOF
-          next
+      # Get our first integer
+      result = self.term
+      # Keep looping through the syntax diagram
+      loop_tokens = [
+        TokenType::PLUS,
+        TokenType::MINUS,
+      ]
+      while loop_tokens.includes? @current_token.token_type
+        token = @current_token
+        case token.token_type
+        when TokenType::PLUS
+          self.eat TokenType::PLUS
+          result += self.term
+        when TokenType::MINUS
+          self.eat TokenType::MINUS
+          result -= self.term
         end
-        self.eat TokenType::INTEGER
-        # Now add this new right number to the result
-        result = self.handle_expression result, op, right.value.to_i
       end
+      # Return the result
       result
     end
 
