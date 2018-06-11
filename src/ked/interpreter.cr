@@ -2,9 +2,8 @@
 module Ked
   # Grammar rules
   # expr:   term ((ADD | SUB) term)*
-  # term:   paren ((MUL | DIV) paren)*
-  # paren:  (OPEN_PAREN)? factor ((ADD | SUB | MUL | DIV | paren) factor CLOSE_PAREN)*
-  # factor: INTEGER
+  # term:   factor ((MUL | DIV) factor)*
+  # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
   class Interpreter
     @lexer : Lexer
     @current_token : Token
@@ -49,70 +48,40 @@ module Ked
       result
     end
 
-    # term: paren ((MUL | DIV) paren)*
+    # term: factor ((MUL | DIV) factor)*
     def term : Int
       token_types = [
         TokenType::MULTIPLY,
         TokenType::DIVIDE,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
-      result = self.paren
+      result = self.factor
       while token_types.includes? @current_token.token_type
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::MULTIPLY
           self.eat TokenType::MULTIPLY
-          result *= self.paren
+          result *= self.factor
         elsif @current_token.token_type == TokenType::DIVIDE
           self.eat TokenType::DIVIDE
-          result /= self.paren
+          result /= self.factor
         end
       end
       result
     end
 
-    # paren: (OPEN_PAREN)? factor ((ADD | SUB | MUL | DIV | OPEN_PAREN) paren CLOSE_PAREN)*
-    def paren : Int
-      # First check if the current token is a parentheses
-      if @current_token.token_type != TokenType::OPEN_PAREN
-        return self.factor
-      end
-      # If it is then we need to do some handling
-      token_types = [
-        TokenType::ADD,
-        TokenType::SUBTRACT,
-        TokenType::MULTIPLY,
-        TokenType::DIVIDE,
-      ]
-      self.eat TokenType::OPEN_PAREN
-      result = self.factor
-      while token_types.includes? @current_token.token_type
-        case @current_token.token_type
-        # If it is ADD, SUB, MUL or DIV, just do the maths, else recursively call paren
-        when TokenType::ADD
-          self.eat TokenType::ADD
-          result += self.paren
-        when TokenType::SUBTRACT
-          self.eat TokenType::SUBTRACT
-          result -= self.paren
-        when TokenType::MULTIPLY
-          self.eat TokenType::MULTIPLY
-          result *= self.paren
-        when TokenType::DIVIDE
-          self.eat TokenType::DIVIDE
-          result /= self.paren
-        end
-      end
-      # Ensure the syntax is correct by closing the parentheses
-      self.eat TokenType::CLOSE_PAREN
-      # Return the result
-      result
-    end
-
-    # factor: INTEGER
+    # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
     def factor : Int
       token = @current_token
-      self.eat TokenType::INTEGER
-      token.value.to_i
+      if token.token_type == TokenType::INTEGER
+        self.eat TokenType::INTEGER
+        return token.value.to_i
+      elsif token.token_type == TokenType::OPEN_PAREN
+        self.eat TokenType::OPEN_PAREN
+        result = self.expr
+        self.eat TokenType::CLOSE_PAREN
+        return result
+      end
+      self.error
     end
   end
 end
