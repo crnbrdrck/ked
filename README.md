@@ -7,6 +7,12 @@ See the [documentation](http://adam-lynch.github.io/ked/) (maintained at the [gh
 
 This interpreter is being built by [crnbrdrck](https://github.com/crnbrdrck) in the wonderful Crystal Programming Language by following [this tutorial](https://ruslanspivak.com/lsbasi-part1/)
 
+I'm doing this for a few reasons;
+1. I wanted to learn how interpreters function
+2. I wanted another project to do in Crystal
+3. I've known about Ked for a while and always assumed it was an actual programming language so I wanted to make it real
+4. For the fun of it
+
 ## Installation
 
 TODO: Write installation instructions here
