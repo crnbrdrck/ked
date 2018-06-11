@@ -16,6 +16,6 @@ while true
   if text
     # Try and interpret the text
     parser = Ked::Parser.new text
-    puts parser.parse.to_s
+    puts parser.parse.visit
   end
 end

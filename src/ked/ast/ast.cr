@@ -6,5 +6,9 @@ module Ked
     def to_s
       ""
     end
+
+    def visit
+      raise "No visit method defined for #{self.class.name}"
+    end
   end
 end
