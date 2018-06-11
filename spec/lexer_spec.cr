@@ -41,5 +41,15 @@ describe Ked::Lexer do
       expected = Ked::Token.new Ked::TokenType::DIVIDE, '/'
       Ked::Lexer.new("/").get_next_token.should eq expected
     end
+
+    it "should return the correct type of token for opening parentheses" do
+      expected = Ked::Token.new Ked::TokenType::OPEN_PAREN, '('
+      Ked::Lexer.new("(").get_next_token.should eq expected
+    end
+
+    it "should return the correct type of token for closing parentheses" do
+      expected = Ked::Token.new Ked::TokenType::CLOSE_PAREN, ')'
+      Ked::Lexer.new(")").get_next_token.should eq expected
+    end
   end
 end
