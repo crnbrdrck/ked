@@ -16,7 +16,7 @@ module Ked
     end
 
     def parse : AST
-      self.expr
+      expr
     end
 
     private def error
@@ -28,7 +28,7 @@ module Ked
       if @current_token.token_type == token_type
         @current_token = @lexer.get_next_token
       else
-        self.error
+        error
       end
     end
 
@@ -40,16 +40,16 @@ module Ked
         TokenType::SUBTRACT,
       ]
       # Get the first term for our expr (which is not optional according to our grammar rules)
-      node : AST = self.term
+      node : AST = term
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::ADD
-          self.eat TokenType::ADD
+          eat TokenType::ADD
         elsif @current_token.token_type == TokenType::SUBTRACT
-          self.eat TokenType::SUBTRACT
+          eat TokenType::SUBTRACT
         end
-        node = BinOp.new left: node, token: token, right: self.term
+        node = BinOp.new left: node, token: token, right: term
       end
       node
     end
@@ -61,16 +61,16 @@ module Ked
         TokenType::DIVIDE,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
-      node : AST = self.factor
+      node : AST = factor
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::MULTIPLY
-          self.eat TokenType::MULTIPLY
+          eat TokenType::MULTIPLY
         elsif @current_token.token_type == TokenType::DIVIDE
-          self.eat TokenType::DIVIDE
+          eat TokenType::DIVIDE
         end
-        node = BinOp.new left: node, token: token, right: self.factor
+        node = BinOp.new left: node, token: token, right: factor
       end
       node
     end
@@ -79,15 +79,15 @@ module Ked
     private def factor : AST
       token = @current_token
       if token.token_type == TokenType::INTEGER
-        self.eat TokenType::INTEGER
+        eat TokenType::INTEGER
         return Num.new token
       elsif token.token_type == TokenType::OPEN_PAREN
-        self.eat TokenType::OPEN_PAREN
-        node = self.expr
-        self.eat TokenType::CLOSE_PAREN
+        eat TokenType::OPEN_PAREN
+        node = expr
+        eat TokenType::CLOSE_PAREN
         return node
       end
-      self.error
+      error
     end
   end
 end
