@@ -23,12 +23,12 @@ describe Ked::Lexer do
     end
 
     it "should return the correct type of token for addition" do
-      expected = Ked::Token.new Ked::TokenType::PLUS, '+'
+      expected = Ked::Token.new Ked::TokenType::ADD, '+'
       Ked::Lexer.new("+").get_next_token.should eq expected
     end
 
     it "should return the correct type of token for subtraction" do
-      expected = Ked::Token.new Ked::TokenType::MINUS, '-'
+      expected = Ked::Token.new Ked::TokenType::SUBTRACT, '-'
       Ked::Lexer.new("-").get_next_token.should eq expected
     end
 
