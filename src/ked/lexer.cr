@@ -1,3 +1,4 @@
+# TODO: Documentation
 module Ked
   class Lexer
     @current_char : Char
