@@ -15,12 +15,16 @@ module Ked
       @current_token = @lexer.get_next_token
     end
 
-    def error
+    def parse : AST
+      self.expr
+    end
+
+    private def error
       raise "Error when parsing input"
     end
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
-    def eat(token_type : TokenType)
+    private def eat(token_type : TokenType)
       if @current_token.token_type == token_type
         @current_token = @lexer.get_next_token
       else
@@ -30,7 +34,7 @@ module Ked
 
     # Grammar rules implementations
     # expr: term ((ADD | SUB) term)*
-    def expr : AST
+    private def expr : AST
       token_types = [
         TokenType::ADD,
         TokenType::SUBTRACT,
@@ -51,7 +55,7 @@ module Ked
     end
 
     # term: factor ((MUL | DIV) factor)*
-    def term : AST
+    private def term : AST
       token_types = [
         TokenType::MULTIPLY,
         TokenType::DIVIDE,
@@ -72,7 +76,7 @@ module Ked
     end
 
     # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
-    def factor : AST
+    private def factor : AST
       token = @current_token
       if token.token_type == TokenType::INTEGER
         self.eat TokenType::INTEGER
