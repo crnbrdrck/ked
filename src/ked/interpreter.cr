@@ -101,6 +101,8 @@ module Ked
       loop_tokens = [
         TokenType::PLUS,
         TokenType::MINUS,
+        TokenType::MULTIPLY,
+        TokenType::DIVIDE,
       ]
       while loop_tokens.includes? @current_token.token_type
         token = @current_token
