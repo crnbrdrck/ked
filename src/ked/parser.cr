@@ -5,7 +5,7 @@ module Ked
   # Grammar rules
   # expr:   term ((PLUS | MINUS) term)*
   # term:   factor ((MUL | DIV) factor)*
-  # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
+  # factor: (PLUS|MINUS) factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN
   class Parser
     @lexer : Lexer
     @current_token : Token
@@ -78,7 +78,13 @@ module Ked
     # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
     private def factor : AST
       token = @current_token
-      if token.token_type == TokenType::INTEGER
+      if token.token_type == TokenType::PLUS
+        eat TokenType::PLUS
+        return UnaryOp.new token: token, expr: factor
+      elsif token.token_type == TokenType::MINUS
+        eat TokenType::MINUS
+        return UnaryOp.new token: token, expr: factor
+      elsif token.token_type == TokenType::INTEGER
         eat TokenType::INTEGER
         return Num.new token
       elsif token.token_type == TokenType::OPEN_PAREN
