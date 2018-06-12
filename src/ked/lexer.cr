@@ -81,6 +81,14 @@ module Ked
         elsif @current_char == ')'
           self.advance
           return Token.new TokenType::CLOSE_PAREN, ')'
+        elsif @current_char == '='
+          self.advance
+          return Token.new TokenType::ASSIGN, '='
+        end
+
+        # Now check for the tokens that make up multiple characters
+        if @current_char == '€' || @current_char.alphanumeric?
+          return id
         end
         self.error
       end
@@ -102,7 +110,7 @@ module Ked
       result = [] of Char
       while @current_char != Ked::TERMINATOR && @current_char.alphanumeric?
         result << @current_char
-        advance
+        self.advance
       end
       # Special handling for the € VAR_ID symbol
       result = result.join ""
