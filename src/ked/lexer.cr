@@ -77,5 +77,15 @@ module Ked
       end
       Token.new TokenType::EOF, '\u{0}'
     end
+
+    # Check the next character in the text when lexing tokens from the text
+    def peek : Char
+      peek_pos = @pos + 1
+      if peek_pos > @text.size - 1
+        '\u{0}'
+      else
+        @text[peek_pos]
+      end
+    end
   end
 end
