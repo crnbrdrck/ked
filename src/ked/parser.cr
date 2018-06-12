@@ -46,7 +46,7 @@ module Ked
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::PLUS
           eat TokenType::PLUS
-        elsif @current_token.token_type == TokenType::SUBTRACT
+        elsif @current_token.token_type == TokenType::MINUS
           eat TokenType::MINUS
         end
         node = BinOp.new left: node, token: token, right: term
