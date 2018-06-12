@@ -104,7 +104,12 @@ module Ked
         result << @current_char
         advance
       end
+      # Special handling for the € VAR_ID symbol
       result = result.join ""
+      if @current_char == '€'
+        result = "€"
+        advance
+      end
       Ked::RESERVED_WORDS.fetch result, Token.new TokenType::ID, result
     end
   end
