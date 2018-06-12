@@ -23,23 +23,23 @@ describe Ked::Lexer do
     end
 
     it "should return the correct type of token for addition" do
-      expected = Ked::Token.new Ked::TokenType::PLUS, '+'
-      Ked::Lexer.new("+").get_next_token.should eq expected
+      expected = Ked::Token.new Ked::TokenType::PLUS, "plus"
+      Ked::Lexer.new("plus").get_next_token.should eq expected
     end
 
     it "should return the correct type of token for subtraction" do
-      expected = Ked::Token.new Ked::TokenType::MINUS, '-'
-      Ked::Lexer.new("-").get_next_token.should eq expected
+      expected = Ked::Token.new Ked::TokenType::AWAY_FROM, "awayFrom"
+      Ked::Lexer.new("awayFrom").get_next_token.should eq expected
     end
 
     it "should return the correct type of token for multiplication" do
-      expected = Ked::Token.new Ked::TokenType::MULTIPLY, '*'
-      Ked::Lexer.new("*").get_next_token.should eq expected
+      expected = Ked::Token.new Ked::TokenType::TIMES, "times"
+      Ked::Lexer.new("times").get_next_token.should eq expected
     end
 
     it "should return the correct type of token for division" do
-      expected = Ked::Token.new Ked::TokenType::DIVIDE, '/'
-      Ked::Lexer.new("/").get_next_token.should eq expected
+      expected = Ked::Token.new Ked::TokenType::INTO, "into"
+      Ked::Lexer.new("into").get_next_token.should eq expected
     end
 
     it "should return the correct type of token for opening parentheses" do
