@@ -3,9 +3,15 @@ require "./ast/*"
 # TODO: Documentation
 module Ked
   # Grammar rules
-  # expr:   term ((PLUS | MINUS) term)*
-  # term:   factor ((MUL | DIV) factor)*
-  # factor: (PLUS|MINUS) factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN
+  # program:              statement_list
+  # statement_list:       statement LIKE | statement LIKE statement_list
+  # statement:            assignment_statement | empty
+  # assignment_statement: REMEMBER variable ASSIGN expr
+  # variable:             VAR_PREFIX ID
+  # expr:                 term ((PLUS | MINUS) term)*
+  # term:                 factor ((MUL | DIV) factor)*
+  # factor:               PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
+  # empty:
   class Parser
     @lexer : Lexer
     @current_token : Token
