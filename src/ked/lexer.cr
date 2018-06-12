@@ -56,10 +56,10 @@ module Ked
           return Token.new TokenType::INTEGER, self.get_integer
         elsif @current_char == '+'
           self.advance
-          return Token.new TokenType::ADD, '+'
+          return Token.new TokenType::PLUS, '+'
         elsif @current_char == '-'
           self.advance
-          return Token.new TokenType::SUBTRACT, '-'
+          return Token.new TokenType::MINUS, '-'
         elsif @current_char == '*'
           self.advance
           return Token.new TokenType::MULTIPLY, '*'

@@ -11,9 +11,9 @@ module Ked
 
     def visit : Int
       case @op.token_type
-      when TokenType::ADD
+      when TokenType::PLUS
         return @left.visit + @right.visit
-      when TokenType::SUBTRACT
+      when TokenType::MINUS
         return @left.visit - @right.visit
       when TokenType::MULTIPLY
         return @left.visit * @right.visit

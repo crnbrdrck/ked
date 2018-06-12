@@ -2,12 +2,12 @@ require "./spec_helper"
 
 describe Ked::Interpreter do
   describe "interpret" do
-    it "should be successfully be able to handle an expression of INTEGER ADD INTEGER and return the correct value" do
+    it "should be successfully be able to handle an expression of INTEGER PLUS INTEGER and return the correct value" do
       interpreter = Ked::Interpreter.new "3 + 3"
       interpreter.interpret.should eq 6
     end
 
-    it "should be successfully be able to handle an expression of INTEGER SUBTRACT INTEGER and return the correct value" do
+    it "should be successfully be able to handle an expression of INTEGER MINUS INTEGER and return the correct value" do
       interpreter = Ked::Interpreter.new "7 - 3"
       interpreter.interpret.should eq 4
     end

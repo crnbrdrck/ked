@@ -4,8 +4,8 @@ module Ked
     # Data Types
     INTEGER
     # Operators
-    ADD
-    SUBTRACT
+    PLUS
+    MINUS
     MULTIPLY
     DIVIDE
     # Parentheses

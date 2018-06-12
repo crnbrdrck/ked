@@ -3,7 +3,7 @@ require "./ast/*"
 # TODO: Documentation
 module Ked
   # Grammar rules
-  # expr:   term ((ADD | SUB) term)*
+  # expr:   term ((PLUS | MINUS) term)*
   # term:   factor ((MUL | DIV) factor)*
   # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
   class Parser
@@ -33,21 +33,21 @@ module Ked
     end
 
     # Grammar rules implementations
-    # expr: term ((ADD | SUB) term)*
+    # expr: term ((PLUS | MINUS) term)*
     private def expr : AST
       token_types = [
-        TokenType::ADD,
-        TokenType::SUBTRACT,
+        TokenType::PLUS,
+        TokenType::MINUS,
       ]
       # Get the first term for our expr (which is not optional according to our grammar rules)
       node : AST = term
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
-        if @current_token.token_type == TokenType::ADD
-          eat TokenType::ADD
+        if @current_token.token_type == TokenType::PLUS
+          eat TokenType::PLUS
         elsif @current_token.token_type == TokenType::SUBTRACT
-          eat TokenType::SUBTRACT
+          eat TokenType::MINUS
         end
         node = BinOp.new left: node, token: token, right: term
       end
