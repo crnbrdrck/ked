@@ -10,10 +10,6 @@ module Ked
       def to_s
         "Num(#{@value})"
       end
-
-      def visit : Int
-        @value.to_i
-      end
     end
   end
 end

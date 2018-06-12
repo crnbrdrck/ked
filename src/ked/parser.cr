@@ -22,7 +22,14 @@ module Ked
     end
 
     def parse : AST::Node
-      expr
+      # Parse the program
+      node = program
+      # Ensure that we have reached the end of the file after parsing the program, and if not raise an error
+      if @current_token.token_type != TokenType::EOF
+        error
+      end
+      # Return the root node if the parsing was successful
+      node
     end
 
     private def error
