@@ -2,7 +2,7 @@
 module Ked
   # HashMap of reserved words to their representative tokens
   RESERVED_WORDS = {
-    "remember" => Token.new(TokenType::REMEMBER, "REMEMBER"),
+    "remember" => Token.new(TokenType::REMEMBER, "remember"),
     "€"        => Token.new(TokenType::VAR_PREFIX, '€'),
     "like"     => Token.new(TokenType::LIKE, "like"),
     "plus"     => Token.new(TokenType::PLUS, "plus"),
