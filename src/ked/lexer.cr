@@ -1,5 +1,12 @@
 # TODO: Documentation
 module Ked
+  # HashMap of reserved words to their representative tokens
+  RESERVED_WORDS = {
+    "remember" => Token.new(TokenType::REMEMBER, "REMEMBER"),
+    "€"        => Token.new(TokenType::VAR_PREFIX, '€'),
+    "like"     => Token.new(TokenType::LIKE, "like"),
+  }
+
   # The terminator character marking the end of input
   # Using this instead of nil to avoid having `not_nil!` calls all over the shop
   TERMINATOR = '\u{0}'
@@ -90,6 +97,17 @@ module Ked
       else
         @text[peek_pos]
       end
+    end
+
+    # Handle parsing ID tokens, taking into account the reserved words in Ked
+    private def id : Token
+      result = [] of Char
+      while @current_char != Ked::TERMINATOR && @current_char.alphanumeric?
+        result << @current_char
+        advance
+      end
+      result = result.join ""
+      Ked::RESERVED_WORDS.fetch result, Token.new TokenType::ID, result
     end
   end
 end
