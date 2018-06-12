@@ -21,7 +21,7 @@ module Ked
       @current_token = @lexer.get_next_token
     end
 
-    def parse : AST
+    def parse : AST::Node
       expr
     end
 
@@ -40,13 +40,13 @@ module Ked
 
     # Grammar rules implementations
     # expr: term ((PLUS | AWAY_FROM) term)*
-    private def expr : AST
+    private def expr : AST::Node
       token_types = [
         TokenType::PLUS,
         TokenType::AWAY_FROM,
       ]
       # Get the first term for our expr (which is not optional according to our grammar rules)
-      node : AST = term
+      node : AST::Node = term
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
@@ -55,19 +55,19 @@ module Ked
         elsif @current_token.token_type == TokenType::AWAY_FROM
           eat TokenType::AWAY_FROM
         end
-        node = BinOp.new left: node, token: token, right: term
+        node = AST::BinOp.new left: node, token: token, right: term
       end
       node
     end
 
     # term: factor ((TIMES | INTO) factor)*
-    private def term : AST
+    private def term : AST::Node
       token_types = [
         TokenType::TIMES,
         TokenType::INTO,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
-      node : AST = factor
+      node : AST::Node = factor
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
@@ -76,23 +76,23 @@ module Ked
         elsif @current_token.token_type == TokenType::INTO
           eat TokenType::INTO
         end
-        node = BinOp.new left: node, token: token, right: factor
+        node = AST::BinOp.new left: node, token: token, right: factor
       end
       node
     end
 
     # factor: UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
-    private def factor : AST
+    private def factor : AST::Node
       token = @current_token
       if token.token_type == TokenType::UNARY_PLUS
         eat TokenType::UNARY_PLUS
-        return UnaryOp.new token: token, expr: factor
+        return AST::UnaryOp.new token: token, expr: factor
       elsif token.token_type == TokenType::MINUS
         eat TokenType::MINUS
-        return UnaryOp.new token: token, expr: factor
+        return AST::UnaryOp.new token: token, expr: factor
       elsif token.token_type == TokenType::INTEGER
         eat TokenType::INTEGER
-        return Num.new token
+        return AST::Num.new token
       elsif token.token_type == TokenType::OPEN_PAREN
         eat TokenType::OPEN_PAREN
         node = expr
