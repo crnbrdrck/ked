@@ -5,6 +5,10 @@ module Ked
     "remember" => Token.new(TokenType::REMEMBER, "REMEMBER"),
     "€"        => Token.new(TokenType::VAR_PREFIX, '€'),
     "like"     => Token.new(TokenType::LIKE, "like"),
+    "plus"     => Token.new(TokenType::PLUS, "plus"),
+    "awayFrom" => Token.new(TokenType::AWAY_FROM, "awayFrom"),
+    "times"    => Token.new(TokenType::TIMES, "times"),
+    "into"     => Token.new(TokenType::INTO, "into"),
   }
 
   # The terminator character marking the end of input
@@ -67,16 +71,10 @@ module Ked
           return Token.new TokenType::INTEGER, self.get_integer
         elsif @current_char == '+'
           self.advance
-          return Token.new TokenType::PLUS, '+'
+          return Token.new TokenType::UNARY_PLUS, '+'
         elsif @current_char == '-'
           self.advance
           return Token.new TokenType::MINUS, '-'
-        elsif @current_char == '*'
-          self.advance
-          return Token.new TokenType::MULTIPLY, '*'
-        elsif @current_char == '/'
-          self.advance
-          return Token.new TokenType::DIVIDE, '/'
         elsif @current_char == '('
           self.advance
           return Token.new TokenType::OPEN_PAREN, '('

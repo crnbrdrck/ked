@@ -8,9 +8,9 @@ module Ked
   # statement:            assignment_statement | empty
   # assignment_statement: REMEMBER variable ASSIGN expr
   # variable:             VAR_PREFIX ID
-  # expr:                 term ((PLUS | MINUS) term)*
-  # term:                 factor ((MUL | DIV) factor)*
-  # factor:               PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
+  # expr:                 term ((PLUS | AWAY_FROM) term)*
+  # term:                 factor ((TIMES | INTO) factor)*
+  # factor:               UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
   class Parser
     @lexer : Lexer
@@ -39,11 +39,11 @@ module Ked
     end
 
     # Grammar rules implementations
-    # expr: term ((PLUS | MINUS) term)*
+    # expr: term ((PLUS | AWAY_FROM) term)*
     private def expr : AST
       token_types = [
         TokenType::PLUS,
-        TokenType::MINUS,
+        TokenType::AWAY_FROM,
       ]
       # Get the first term for our expr (which is not optional according to our grammar rules)
       node : AST = term
@@ -52,40 +52,40 @@ module Ked
         # Depending on which symbol our current token is currently on, do some maths
         if @current_token.token_type == TokenType::PLUS
           eat TokenType::PLUS
-        elsif @current_token.token_type == TokenType::MINUS
-          eat TokenType::MINUS
+        elsif @current_token.token_type == TokenType::AWAY_FROM
+          eat TokenType::AWAY_FROM
         end
         node = BinOp.new left: node, token: token, right: term
       end
       node
     end
 
-    # term: factor ((MUL | DIV) factor)*
+    # term: factor ((TIMES | INTO) factor)*
     private def term : AST
       token_types = [
-        TokenType::MULTIPLY,
-        TokenType::DIVIDE,
+        TokenType::TIMES,
+        TokenType::INTO,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
       node : AST = factor
       while token_types.includes? @current_token.token_type
         token = @current_token
         # Depending on which symbol our current token is currently on, do some maths
-        if @current_token.token_type == TokenType::MULTIPLY
-          eat TokenType::MULTIPLY
-        elsif @current_token.token_type == TokenType::DIVIDE
-          eat TokenType::DIVIDE
+        if @current_token.token_type == TokenType::TIMES
+          eat TokenType::TIMES
+        elsif @current_token.token_type == TokenType::INTO
+          eat TokenType::INTO
         end
         node = BinOp.new left: node, token: token, right: factor
       end
       node
     end
 
-    # factor: INTEGER | OPEN_PAREN expr CLOSE_PAREN
+    # factor: UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
     private def factor : AST
       token = @current_token
-      if token.token_type == TokenType::PLUS
-        eat TokenType::PLUS
+      if token.token_type == TokenType::UNARY_PLUS
+        eat TokenType::UNARY_PLUS
         return UnaryOp.new token: token, expr: factor
       elsif token.token_type == TokenType::MINUS
         eat TokenType::MINUS

@@ -4,10 +4,12 @@ module Ked
     # Data Types
     INTEGER
     # Operators
-    PLUS
-    MINUS
-    MULTIPLY
-    DIVIDE
+    PLUS       # 'plus' reserved word
+    UNARY_PLUS # '+' unary operator
+    MINUS      # Unary operator
+    AWAY_FROM
+    TIMES
+    INTO
     # Parentheses
     OPEN_PAREN
     CLOSE_PAREN
