@@ -39,6 +39,72 @@ module Ked
     end
 
     # Grammar rules implementations
+    # program: statement_list
+    private def program : AST::Node
+      statement_list
+    end
+
+    # statement_list: statement LIKE | statement LIKE statement_list
+    private def statement_list : AST::Node
+      # There's guaranteed to be at least one statement and a LIKE terminator
+      node = statement
+      nodes = [node]
+
+      # Now there could be another statement_list here, all statements separated by LIKE tokens
+      while @current_token.token_type == TokenType::LIKE
+        eat TokenType::LIKE
+        nodes << statement
+      end
+
+      # There has to be a terminating LIKE here at the end too
+      eat TokenType::LIKE
+
+      # We shouldn't be currently looking at an ID type token
+      if @current_token.token_type == TokenType::ID
+        error
+      end
+
+      # Return the list we parsed
+      nodes
+    end
+
+    # statement: assignment_statement | empty
+    private def statement : AST::Node
+      if @current_token.token_type == TokenType::REMEMBER
+        node = assignment_statement
+      else
+        node = empty
+      end
+      # Return the found node
+      node
+    end
+
+    # assignment_statement: REMEMBER variable ASSIGN expr
+    private def assignment_statement : AST::Node
+      # Ensure statement begins with REMEMBER token
+      eat TokenType::REMEMBER
+      left = variable
+      token = @current_token
+      eat TokenType::ASSIGN
+      right = expr
+      node = AST::Assign.new
+    end
+
+    # variable: VAR_PREFIX ID
+    private def variable : AST::Node
+      # Ensure that variables are prefixed with the € symbol
+      eat TokenType::VAR_PREFIX
+      # Create and return a Var node
+      AST::Var.new @current_token
+    end
+
+    # empty:
+    private def empty : AST::Node
+      # Return a NoOp node
+      # Still unsure if we need this at all
+      AST::NoOp.new
+    end
+
     # expr: term ((PLUS | AWAY_FROM) term)*
     private def expr : AST::Node
       token_types = [
