@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Ked::Lexer do
   describe "get_next_token" do
     it "should return the EOF token when the text is empty" do
-      expected = Ked::Token.new Ked::TokenType::EOF, '\u{0}'
+      expected = Ked::Token.new Ked::TokenType::EOF, Ked::TERMINATOR
       Ked::Lexer.new("").get_next_token.should eq expected
     end
 
