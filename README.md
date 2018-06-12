@@ -13,6 +13,12 @@ I'm doing this for a few reasons;
 3. I've known about Ked for a while and always assumed it was an actual programming language so I wanted to make it real
 4. For the fun of it
 
+## Progress Report
+
+Currently after completing part 8 of the tutorial.
+Part 9 begins talking about parsing an entire Pascal file, so I imagine it will be from this point on that the Ked-lang interpreter will start to take shape of its own.
+Stay tuned ;)
+
 ## Installation
 
 TODO: Write installation instructions here
