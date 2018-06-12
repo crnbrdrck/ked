@@ -152,20 +152,22 @@ module Ked
       token = @current_token
       if token.token_type == TokenType::UNARY_PLUS
         eat TokenType::UNARY_PLUS
-        return AST::UnaryOp.new token: token, expr: factor
+        AST::UnaryOp.new token: token, expr: factor
       elsif token.token_type == TokenType::MINUS
         eat TokenType::MINUS
-        return AST::UnaryOp.new token: token, expr: factor
+        AST::UnaryOp.new token: token, expr: factor
       elsif token.token_type == TokenType::INTEGER
         eat TokenType::INTEGER
-        return AST::Num.new token
+        AST::Num.new token
       elsif token.token_type == TokenType::OPEN_PAREN
         eat TokenType::OPEN_PAREN
         node = expr
         eat TokenType::CLOSE_PAREN
-        return node
+        node
+      else
+        # Assume it's a variable and parse as such
+        variable
       end
-      error
     end
   end
 end
