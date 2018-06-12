@@ -11,6 +11,12 @@ module Ked
     # Parentheses
     OPEN_PAREN
     CLOSE_PAREN
+    # Statements
+    LIKE       # End of statement
+    REMEMBER   # Variable assignment
+    ASSIGN     # Variable assignment
+    VAR_PREFIX # (€) - Denotes variable ids
+    ID         # Denotes identifier for variable
     # Other Stuff
     SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Parser
     EOF
