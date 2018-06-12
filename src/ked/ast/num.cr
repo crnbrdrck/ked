@@ -10,6 +10,9 @@ module Ked
       def to_s
         "Num(#{@value})"
       end
+
+      # Getters
+      getter value
     end
   end
 end

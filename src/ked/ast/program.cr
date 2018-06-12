@@ -4,6 +4,9 @@ module Ked
     class Program < Node
       def initialize(@statements : Array(Node))
       end
+
+      # Getters
+      getter statements
     end
   end
 end

@@ -8,6 +8,9 @@ module Ked
       def initialize(@token : Token)
         @value = @token.value
       end
+
+      # Getters
+      getter value
     end
   end
 end

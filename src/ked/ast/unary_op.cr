@@ -8,6 +8,10 @@ module Ked
       def to_s
         "#{@token.value}(#{@expr.to_s})"
       end
+
+      # Getters
+      getter op
+      getter expr
     end
   end
 end

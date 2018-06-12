@@ -9,6 +9,11 @@ module Ked
       def to_s
         "(#{@left.to_s} #{@token.value} #{@right.to_s})"
       end
+
+      # Getters
+      getter left
+      getter op
+      getter right
     end
   end
 end
