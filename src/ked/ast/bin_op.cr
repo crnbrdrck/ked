@@ -13,12 +13,12 @@ module Ked
       case @op.token_type
       when TokenType::PLUS
         return @left.visit + @right.visit
-      when TokenType::MINUS
-        return @left.visit - @right.visit
-      when TokenType::MULTIPLY
+      when TokenType::AWAY_FROM
+        return @right.visit - @left.visit
+      when TokenType::TIMES
         return @left.visit * @right.visit
-      when TokenType::DIVIDE
-        return @left.visit / @right.visit
+      when TokenType::INTO
+        return @right.visit / @left.visit
       end
       return 0
     end
