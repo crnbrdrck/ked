@@ -14,7 +14,7 @@ Supported features:\u001b[36m
 To see the code and maybe even contribute, visit https://github.com/crnbrdrck/ked
 
 Usage:
-  ked [options] feen.ked - Run the script called `feen.ked` and print the global variable scope of the interpreter after interpreting the whole thing
+  ked [options] feen.ked - Run the script called `feen.ked`
 
   Options:"
 end

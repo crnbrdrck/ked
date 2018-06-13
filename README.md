@@ -33,6 +33,7 @@ I'm doing this for a few reasons;
 1. Ensure that *Crystal* is installed on your machine: https://crystal-lang.org/docs/installation/
 2. Clone this repo from the master branch: `git clone git@github.com:crnbrdrck/ked.git`
 3. Build the binary: `make`
+    - The binary will be saved to `./bin/`
 4. (Optionally) Install the binary to your path: `sudo make install`
 
 To remove, simply do `sudo make clean` which will clean up any directories and files made by the install process
@@ -41,15 +42,15 @@ To remove, simply do `sudo make clean` which will clean up any directories and f
 
 ```
 Usage:
-  ked [options] feen.ked - Run the script called 'feen.ked' and print the global variable scope of the interpreter after interpreting the whole thing
+  ked [options] feen.ked - Run the script called 'feen.ked'
 
   Options:
-    -d, --debug                      Print the status of the global variable scope after parsing the script
+    -d, --debug                      Print the status of the global variable scope after running the script
     -h, --help                       Show this help message
     -v, --version                    Print version information
 ```
 
-- `ked feen.ked` - Open, parse and interpret the script contained in the file named 'feen.ked'
+- `ked feen.ked` - Run the script named 'feen.ked'
 - `ked -d feen.ked` - Same as above but also prints the current state of the interpreter's global variable state table to stdout
 - `ked -v` - Check the current version of `ked` installed
 
@@ -68,7 +69,7 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [x] Part  7
 - [x] Part  8
 - [x] Part  9
-- [ ] Part 10
+- [x] Part 10
 - [ ] Part 11
 - [ ] Part 12
 - [ ] Part 13
@@ -78,12 +79,16 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
 
+***NOTE**: Anything in the list below marked with an asterisk was something not in the original design doc and is open to debate*
+
 - `remember` statements: Assigning variables
 - `plus` operator: Addition of numbers
 - `awayFrom` operator: Subtraction of numbers
 - `times` operator: Multiplication of numbers
 - `into` operator: Division of numbers
+    - `easyInto` operator: Integer division *
 - Unary operators: `+` or `-` signs in front of numbers
+- `£`: comment *
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
@@ -95,11 +100,11 @@ For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-Please be aware that `ked` used the Gitflow Workflow (not for any reason other than I've wanted to try it out) so keep that in mind when making your merge requests, thanks :)
+**Please make all Pull Requests to the `develop` branch and not the master branch**
 
 ## Contributors
 
-Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/crnbrdrck/ked/issues)
+Pull-requests encouraged, but contributions are accepted in any form, including [issues](https://github.com/crnbrdrck/ked/issues).
 
 ### Contributors
 - [adam-lynch](https://github.com/adam-lynch/) - original designer of the Ked language

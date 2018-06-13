@@ -24,18 +24,40 @@ module Ked
     end
 
     # BinOp nodes
-    private def visit(node : AST::BinOp) : Int
+    private def visit(node : AST::BinOp) : Int32 | Float64
+      # Get the left and right values by visiting them
+      left_val = visit(node.left).to_s
+      right_val = visit(node.right).to_s
+      # Try and cast them to the proper types
+      if left_val.to_f?
+        left_val = left_val.to_f
+      elsif left_val.to_i?
+        left_val = left_val.to_i
+      else
+        raise "BinOp Error: Expected numeric value, Received #{left_val}"
+      end
+      if right_val.to_f?
+        right_val = right_val.to_f
+      elsif right_val.to_i?
+        right_val = right_val.to_i
+      else
+        raise "BinOp Error: Expected numeric value, Received #{right_val}"
+      end
+      # Now do the maths
       case node.op.token_type
       when TokenType::PLUS
-        return visit(node.left).to_i + visit(node.right).to_i
+        return left_val + right_val
       when TokenType::AWAY_FROM
-        return visit(node.right).to_i - visit(node.left).to_i
+        return right_val - left_val
       when TokenType::TIMES
-        return visit(node.left).to_i * visit(node.right).to_i
+        return left_val * right_val
       when TokenType::INTO
-        return visit(node.right).to_i / visit(node.left).to_i
+        # To do float division, one param has to be a float already
+        return right_val.to_f / left_val
+      when TokenType::EASY_INTO
+        return right_val / left_val
       end
-      raise "BinOp Error: Expected 'plus', 'awayFrom', 'times', 'into', Received #{node.op.value}"
+      raise "BinOp Error: Expected 'plus', 'awayFrom', 'times', 'into', 'easyInto', Received #{node.op.value}"
     end
 
     # NoOp nodes
@@ -44,8 +66,17 @@ module Ked
     end
 
     # Num nodes
-    private def visit(node : AST::Num) : Int
-      node.value.to_i
+    private def visit(node : AST::Num) : Int32 | Float64
+      val = node.value.to_s
+      if val.to_f?
+        # It's a float
+        return val.to_f
+      elsif val.to_i?
+        # It's an integer
+        return val.to_i
+      else
+        raise "AST::Num: Invalid value. Expected numeric type, got #{val} (#{typeof(val)})"
+      end
     end
 
     # Program nodes
