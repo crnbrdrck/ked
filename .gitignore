@@ -171,3 +171,6 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+# the ked binary
+ked
