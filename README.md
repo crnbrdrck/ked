@@ -3,9 +3,13 @@
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
-See the [documentation](http://adam-lynch.github.io/ked/) (maintained at the [gh-pages](https://github.com/adam-lynch/ked/tree/gh-pages) branch).
+## Documentation
+See the original [documentation](http://adam-lynch.github.io/ked/) showcasing the initial design of the language.
 
-This interpreter is being built by [crnbrdrck](https://github.com/crnbrdrck) in the wonderful Crystal Programming Language by following [this tutorial](https://ruslanspivak.com/lsbasi-part1/)
+There will also be documentation more akin to a reference available sometime at https://crnbrdrck.xyz/ked.
+
+## Why I Am Doing It
+This interpreter is being built by me ([crnbrdrck](https://github.com/crnbrdrck)), in the wonderful Crystal Programming Language, by following [this tutorial](https://ruslanspivak.com/lsbasi-part1/)
 
 I'm doing this for a few reasons;
 1. I wanted to learn how interpreters function
@@ -15,9 +19,8 @@ I'm doing this for a few reasons;
 
 ## Progress Report
 
-Currently after completing part 8 of the tutorial.
-Part 9 begins talking about parsing an entire Pascal file, so I imagine it will be from this point on that the Ked-lang interpreter will start to take shape of its own.
-Stay tuned ;)
+The interpreter can now actually interpret a full `ked` script.
+An example script has been provided in `examples/example1.ked`.
 
 ## Installation
 
@@ -30,11 +33,52 @@ To remove, simply do `sudo make clean` which will clean up any directories and f
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+Usage:
+  ked [options] feen.ked - Run the script called 'feen.ked' and print the global variable scope of the interpreter after interpreting the whole thing
 
-## Development
+  Options:
+    -d, --debug                      Print the status of the global variable scope after parsing the script
+    -h, --help                       Show this help message
+    -v, --version                    Print version information
+```
 
-TODO: Write development instructions here
+- `ked feen.ked` - Open, parse and interpret the script contained in the file named 'feen.ked'
+- `ked -d feen.ked` - Same as above but also prints the current state of the interpreter's global variable state table to stdout
+- `ked -v` - Check the current version of `ked` installed
+
+## Roadmap
+
+### Interpreter Tutorial
+As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-part1/) in order to make this interpreter. This list tracks my progress through this tutorial
+
+- [x] Part  1
+- [x] Part  2
+- [x] Part  3
+- [x] Part  4
+- [x] Part  5
+- [x] Part  6
+- [x] Part  7
+- [x] Part  8
+- [x] Part  9
+- [ ] Part 10
+- [ ] Part 11
+- [ ] Part 12
+- [ ] Part 13
+- [ ] Part 14
+
+### Features
+This is an ever growing list of the current features supported in the `ked` language.
+If this list grows too big I'll probably group things together to give it a semblance of structure
+
+- `remember` statements: Assigning variables
+- `plus` operator: Addition of numbers
+- `awayFrom` operator: Subtraction of numbers
+- `times` operator: Multiplication of numbers
+- `into` operator: Division of numbers
+- Unary operators: `+` or `-` signs in front of numbers
+
+For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
 ## Contributing
 
@@ -44,9 +88,12 @@ TODO: Write development instructions here
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
+Please be aware that `ked` used the Gitflow Workflow (not for any reason other than I've wanted to try it out) so keep that in mind when making your merge requests, thanks :)
+
 ## Contributors
 
-Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/adam-lynch/ked/issues) and emails. [List of contributors](https://github.com/adam-lynch/ked/wiki/Contributors)
+Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/crnbrdrck/ked/issues)
 
+### List Of Contributors
 - [adam-lynch](https://github.com/adam-lynch/) - original designer of the Ked language
 - [crnbrdrck](https://github.com/crnbrdrck) Ciaran Broderick - developed interpreter in crystal
