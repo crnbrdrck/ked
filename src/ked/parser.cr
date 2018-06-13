@@ -38,7 +38,6 @@ module Ked
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
     private def eat(token_type : TokenType)
-      puts "Testing #{@current_token.to_s} against #{token_type.to_s}"
       if @current_token.token_type == token_type
         @current_token = @lexer.get_next_token
       else
