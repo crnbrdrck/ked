@@ -69,7 +69,7 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [x] Part  7
 - [x] Part  8
 - [x] Part  9
-- [ ] Part 10
+- [x] Part 10
 - [ ] Part 11
 - [ ] Part 12
 - [ ] Part 13
@@ -79,12 +79,16 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
 
+***NOTE**: Anything in the list below marked with an asterisk was something not in the original design doc and is open to debate*
+
 - `remember` statements: Assigning variables
 - `plus` operator: Addition of numbers
 - `awayFrom` operator: Subtraction of numbers
 - `times` operator: Multiplication of numbers
 - `into` operator: Division of numbers
+    - `easyInto` operator: Integer division *
 - Unary operators: `+` or `-` signs in front of numbers
+- `£`: comment *
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
@@ -96,7 +100,7 @@ For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-Please be aware that `ked` used the Gitflow Workflow (not for any reason other than I've wanted to try it out) so keep that in mind when making your merge requests, thanks :)
+**Please make all Pull Requests to the `develop` branch and not the master branch**
 
 ## Contributors
 

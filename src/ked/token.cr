@@ -3,13 +3,15 @@ module Ked
   enum TokenType
     # Data Types
     INTEGER
+    REAL
     # Operators
     PLUS       # 'plus' reserved word
     UNARY_PLUS # '+' unary operator
     MINUS      # Unary operator
     AWAY_FROM
     TIMES
-    INTO
+    INTO      # Float div
+    EASY_INTO # Int div
     # Parentheses
     OPEN_PAREN
     CLOSE_PAREN
@@ -24,7 +26,7 @@ module Ked
     EOF
   end
 
-  alias TokenValue = String | Char | Int32
+  alias TokenValue = String | Char | Int32 | Float64
 
   class Token
     getter token_type : TokenType

@@ -6,13 +6,31 @@ describe Ked do
       # Now generate expected data and check that it is correctly generated
       expected = {
         "a"      => 2,
-        "x"      => 11,
-        "c"      => 27,
         "b"      => 25,
+        "c"      => 27,
         "number" => 2,
+        "x"      => 11,
       }
       text = File.read "examples/example1.ked"
       puts "\nContents of example1.ked:\n#{text}"
+      # Create an interpreter to interpret the text
+      interpreter = Ked::Interpreter.new text
+      interpreter.interpret
+      interpreter.global_scope.should eq expected
+    end
+
+    it "should contain the correct information after parsing the examples/example2.ked script" do
+      # Now generate expected data and check that it is correctly generated
+      expected = {
+        "a"      => 2,
+        "b"      => 25,
+        "c"      => 27,
+        "number" => 2,
+        "x"      => 11,
+        "y"      => (20.0 / 7) + 3.14,
+      }
+      text = File.read "examples/example2.ked"
+      puts "\nContents of example2.ked:\n#{text}"
       # Create an interpreter to interpret the text
       interpreter = Ked::Interpreter.new text
       interpreter.interpret

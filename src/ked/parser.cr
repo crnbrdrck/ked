@@ -9,8 +9,8 @@ module Ked
   # assignment_statement: REMEMBER variable ASSIGN expr
   # variable:             VAR_PREFIX ID
   # expr:                 term ((PLUS | AWAY_FROM) term)*
-  # term:                 factor ((TIMES | INTO) factor)*
-  # factor:               UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
+  # term:                 factor ((TIMES | INTO | EASY_INTO) factor)*
+  # factor:               UNARY_PLUS factor | MINUS factor | INTEGER | REAL | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
   class Parser
     @lexer : Lexer
@@ -33,7 +33,7 @@ module Ked
     end
 
     private def error
-      raise "Error when parsing input"
+      raise "Error when parsing input. Current token: #{@current_token.to_s}"
     end
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
@@ -119,10 +119,10 @@ module Ked
       node : AST::Node = term
       while token_types.includes? @current_token.token_type
         token = @current_token
-        # Depending on which symbol our current token is currently on, do some maths
-        if @current_token.token_type == TokenType::PLUS
+        case token.token_type
+        when TokenType::PLUS
           eat TokenType::PLUS
-        elsif @current_token.token_type == TokenType::AWAY_FROM
+        when TokenType::AWAY_FROM
           eat TokenType::AWAY_FROM
         end
         node = AST::BinOp.new left: node, token: token, right: term
@@ -135,16 +135,19 @@ module Ked
       token_types = [
         TokenType::TIMES,
         TokenType::INTO,
+        TokenType::EASY_INTO,
       ]
       # Get the first factor for our term (which is not optional according to our grammar rules)
       node : AST::Node = factor
       while token_types.includes? @current_token.token_type
         token = @current_token
-        # Depending on which symbol our current token is currently on, do some maths
-        if @current_token.token_type == TokenType::TIMES
+        case token.token_type
+        when TokenType::TIMES
           eat TokenType::TIMES
-        elsif @current_token.token_type == TokenType::INTO
+        when TokenType::INTO
           eat TokenType::INTO
+        when TokenType::EASY_INTO
+          eat TokenType::EASY_INTO
         end
         node = AST::BinOp.new left: node, token: token, right: factor
       end
@@ -154,22 +157,26 @@ module Ked
     # factor: UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
     private def factor : AST::Node
       token = @current_token
-      if token.token_type == TokenType::UNARY_PLUS
+      case token.token_type
+      when TokenType::UNARY_PLUS
         eat TokenType::UNARY_PLUS
         AST::UnaryOp.new token: token, expr: factor
-      elsif token.token_type == TokenType::MINUS
+      when TokenType::MINUS
         eat TokenType::MINUS
         AST::UnaryOp.new token: token, expr: factor
-      elsif token.token_type == TokenType::INTEGER
+      when TokenType::INTEGER
         eat TokenType::INTEGER
         AST::Num.new token
-      elsif token.token_type == TokenType::OPEN_PAREN
+      when TokenType::REAL
+        eat TokenType::REAL
+        AST::Num.new token
+      when TokenType::OPEN_PAREN
         eat TokenType::OPEN_PAREN
         node = expr
         eat TokenType::CLOSE_PAREN
         node
       else
-        # Assume it's a variable and parse as such
+        # Assume it's a variable and attempt to parse it as such
         variable
       end
     end

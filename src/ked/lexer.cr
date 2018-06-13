@@ -9,6 +9,7 @@ module Ked
     "awayFrom" => Token.new(TokenType::AWAY_FROM, "awayFrom"),
     "times"    => Token.new(TokenType::TIMES, "times"),
     "into"     => Token.new(TokenType::INTO, "into"),
+    "easyInto" => Token.new(TokenType::EASY_INTO, "easyInto"),
   }
 
   # The terminator character marking the end of input
@@ -47,20 +48,55 @@ module Ked
       end
     end
 
+    # Skip any character outlined in Ked::WHITESPACE_CHARS
     def skip_whitespace
       while @current_char != Ked::TERMINATOR && Ked::WHITESPACE_CHARS.includes? @current_char
         self.advance
       end
     end
 
-    # Return a multidigit integer consumed from the text
-    def get_integer : Int
+    # Skip from a comment symbol to the end of a line
+    def skip_comment
+      while @current_char != '\n'
+        self.advance
+      end
+      # Skip the newline char as well
+      self.advance
+    end
+
+    # Return a multidigit integer or floating point number consumed from the text, as a Token
+    def get_number : Token
       result = [] of Char
+      is_float = false
+      # First, get the integer part of the number
       while @current_char != Ked::TERMINATOR && @current_char.to_i?
         result << @current_char
         self.advance
       end
-      result.join("").to_i
+
+      # Next check if the current_character is a '.'
+      if @current_char == '.'
+        is_float = true
+        result << @current_char
+        self.advance
+
+        # Get the portion of the number after the decimal point
+        while @current_char != Ked::TERMINATOR && @current_char.to_i?
+          result << @current_char
+          self.advance
+        end
+      end
+      # Join result together
+      result = result.join ""
+      if is_float
+        token_type = TokenType::REAL
+        result = result.to_f
+      else
+        token_type = TokenType::INTEGER
+        result = result.to_i
+      end
+      # Create and return the token
+      Token.new token_type, result
     end
 
     # Lexical analyser (also known as scanner or tokeniser)
@@ -73,8 +109,12 @@ module Ked
         if WHITESPACE_CHARS.includes? @current_char
           self.skip_whitespace
           next
+          # Now check for comments
+        elsif @current_char == '£'
+          self.skip_comment
+          next
         elsif @current_char.to_i?
-          return Token.new TokenType::INTEGER, self.get_integer
+          return self.get_number
         elsif @current_char == '+'
           self.advance
           return Token.new TokenType::UNARY_PLUS, '+'
