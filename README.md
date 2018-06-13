@@ -79,12 +79,16 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
 
+***NOTE**: Anything in the list below marked with an asterisk was something not in the original design doc and is open to debate*
+
 - `remember` statements: Assigning variables
 - `plus` operator: Addition of numbers
 - `awayFrom` operator: Subtraction of numbers
 - `times` operator: Multiplication of numbers
 - `into` operator: Division of numbers
+    - `easyInto` operator: Integer division *
 - Unary operators: `+` or `-` signs in front of numbers
+- `£`: comment *
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
