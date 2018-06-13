@@ -3,7 +3,7 @@ module Ked
     @parser : Parser
     # Global variable scope. Is actually meant to be an ADT of its own but we're gonna run a Hash as a hack for a little while
     # It is meant to be an ADT for tracking symbols but since our only symbol currently is variables a Hash should suffice
-    @GLOBAL_SCOPE = {} of TokenValue => TokenValue
+    @global_scope = {} of TokenValue => TokenValue
 
     def initialize(text : String)
       @parser = Parser.new text
@@ -11,16 +11,16 @@ module Ked
 
     def interpret
       tree = @parser.parse
-      # Pass global scope into the visit methods in case any node needs it
-      puts visit tree
+      # We are now testing by checking the GLOBAL STATE
+      visit tree
     end
 
     # Node visitor methods with that sweet sweet overloading
     # Assign nodes
     private def visit(node : AST::Assign) : TokenValue
-      # Get the name of the variable and store its value in the GLOBAL_SCOPE
+      # Get the name of the variable and store its value in the global_scope
       var_name = node.left.value
-      @GLOBAL_SCOPE[var_name] = visit(node.right)
+      @global_scope[var_name] = visit(node.right)
     end
 
     # BinOp nodes
@@ -70,7 +70,7 @@ module Ked
     private def visit(node : AST::Var) : TokenValue
       # The variable needs to be in the global scope first in order for this to work
       var_name = node.value
-      var = @GLOBAL_SCOPE.fetch(var_name, nil)
+      var = @global_scope.fetch(var_name, nil)
       if var.nil?
         # NameError, variable not in scope
         raise "NameError: Variable #{var_name} is undefined"
@@ -82,6 +82,10 @@ module Ked
     # Generic visit, throw exception as we should never get here
     private def visit(node : AST::Node)
       raise "No visit method defined for #{node.class.name}"
+    end
+
+    def global_scope : Hash(TokenValue, TokenValue)
+      @global_scope
     end
   end
 end
