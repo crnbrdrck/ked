@@ -33,6 +33,7 @@ I'm doing this for a few reasons;
 1. Ensure that *Crystal* is installed on your machine: https://crystal-lang.org/docs/installation/
 2. Clone this repo from the master branch: `git clone git@github.com:crnbrdrck/ked.git`
 3. Build the binary: `make`
+    - The binary will be saved to `./bin/`
 4. (Optionally) Install the binary to your path: `sudo make install`
 
 To remove, simply do `sudo make clean` which will clean up any directories and files made by the install process
@@ -41,15 +42,15 @@ To remove, simply do `sudo make clean` which will clean up any directories and f
 
 ```
 Usage:
-  ked [options] feen.ked - Run the script called 'feen.ked' and print the global variable scope of the interpreter after interpreting the whole thing
+  ked [options] feen.ked - Run the script called 'feen.ked'
 
   Options:
-    -d, --debug                      Print the status of the global variable scope after parsing the script
+    -d, --debug                      Print the status of the global variable scope after running the script
     -h, --help                       Show this help message
     -v, --version                    Print version information
 ```
 
-- `ked feen.ked` - Open, parse and interpret the script contained in the file named 'feen.ked'
+- `ked feen.ked` - Run the script named 'feen.ked'
 - `ked -d feen.ked` - Same as above but also prints the current state of the interpreter's global variable state table to stdout
 - `ked -v` - Check the current version of `ked` installed
 
@@ -99,7 +100,7 @@ Please be aware that `ked` used the Gitflow Workflow (not for any reason other t
 
 ## Contributors
 
-Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/crnbrdrck/ked/issues)
+Pull-requests encouraged, but contributions are accepted in any form, including [issues](https://github.com/crnbrdrck/ked/issues).
 
 ### Contributors
 - [adam-lynch](https://github.com/adam-lynch/) - original designer of the Ked language
