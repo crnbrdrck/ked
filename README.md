@@ -21,7 +21,10 @@ Stay tuned ;)
 
 ## Installation
 
-TODO: Write installation instructions here
+1. Ensure that *Crystal* is installed on your machine: https://crystal-lang.org/docs/installation/
+2. Clone this repo from the master branch: `git clone git@github.com:crnbrdrck/ked.git`
+3. Build the binary: `make`
+4. (Optionally) Install the binary to your path: `sudo make install`
 
 ## Usage
 
