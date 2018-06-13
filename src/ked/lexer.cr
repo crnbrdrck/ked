@@ -15,6 +15,12 @@ module Ked
   # Using this instead of nil to avoid having `not_nil!` calls all over the shop
   TERMINATOR = '\u{0}'
 
+  # Characters that are considered "whitespace" and should be skipped
+  WHITESPACE_CHARS = [
+    ' ',
+    '\n',
+  ]
+
   class Lexer
     @current_char : Char
     @pos : Int64 = 0_i64
@@ -28,7 +34,7 @@ module Ked
     end
 
     def error
-      raise "Error when parsing input: position #{@pos}"
+      raise "Error when parsing input: position #{@pos} (#{@text[@pos]})"
     end
 
     # Advance the 'pos' pointer and set the 'current_char' variable
@@ -42,7 +48,7 @@ module Ked
     end
 
     def skip_whitespace
-      while @current_char != Ked::TERMINATOR && @current_char == ' '
+      while @current_char != Ked::TERMINATOR && Ked::WHITESPACE_CHARS.includes? @current_char
         self.advance
       end
     end
@@ -64,7 +70,7 @@ module Ked
       # Loop through and generate tokens from the text
       while @current_char != Ked::TERMINATOR
         # Check for whitespace first
-        if @current_char == ' '
+        if WHITESPACE_CHARS.includes? @current_char
           self.skip_whitespace
           next
         elsif @current_char.to_i?
