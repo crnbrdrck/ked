@@ -27,7 +27,7 @@ describe Ked do
         "c"      => 27,
         "number" => 2,
         "x"      => 11,
-        "y"      => 5.99714285714,
+        "y"      => (20.0 / 7) + 3.14,
       }
       text = File.read "examples/example2.ked"
       puts "\nContents of example2.ked:\n#{text}"
