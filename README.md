@@ -3,12 +3,23 @@
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
-## Documentation
+## Table Of Contents
+- [ked-lang Documentation](#ked-lang-documentation)
+- [But Why?](#but-why)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dev Roadmap](#dev-roadmap)
+    - [Interpreter Tutorial](#interpreter-tutorial)
+    - [Implemented Features](#implemented-features)
+- [Contributing](#contributing)
+    - [Contributors](#contributors)
+
+## ked-lang Documentation
 See the original [documentation](http://adam-lynch.github.io/ked/) showcasing the initial design of the language.
 
-There will also be documentation more akin to a reference available sometime at https://crnbrdrck.xyz/ked.
+There will also be documentation more akin to a reference available sometime (not right now basically) at https://crnbrdrck.xyz/ked.
 
-## Why I Am Doing It
+## But Why?
 This interpreter is being built by me ([crnbrdrck](https://github.com/crnbrdrck)), in the wonderful Crystal Programming Language, by following [this tutorial](https://ruslanspivak.com/lsbasi-part1/)
 
 I'm doing this for a few reasons;
@@ -16,11 +27,6 @@ I'm doing this for a few reasons;
 2. I wanted another project to do in Crystal
 3. I've known about Ked for a while and always assumed it was an actual programming language so I wanted to make it real
 4. For the fun of it
-
-## Progress Report
-
-The interpreter can now actually interpret a full `ked` script.
-An example script has been provided in `examples/example1.ked`.
 
 ## Installation
 
@@ -47,7 +53,8 @@ Usage:
 - `ked -d feen.ked` - Same as above but also prints the current state of the interpreter's global variable state table to stdout
 - `ked -v` - Check the current version of `ked` installed
 
-## Roadmap
+## Dev Roadmap
+A little way of checking the progress of the development of the `ked` programming language
 
 ### Interpreter Tutorial
 As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-part1/) in order to make this interpreter. This list tracks my progress through this tutorial
@@ -67,7 +74,7 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [ ] Part 13
 - [ ] Part 14
 
-### Features
+### Implemented Features
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
 
@@ -94,6 +101,6 @@ Please be aware that `ked` used the Gitflow Workflow (not for any reason other t
 
 Pull-requests encouraged, but contributions are accepted in any form; including [issues](https://github.com/crnbrdrck/ked/issues)
 
-### List Of Contributors
+### Contributors
 - [adam-lynch](https://github.com/adam-lynch/) - original designer of the Ked language
 - [crnbrdrck](https://github.com/crnbrdrck) Ciaran Broderick - developed interpreter in crystal
