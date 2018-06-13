@@ -4,6 +4,8 @@ jobs:
   include:
     - stage: test
       script: crystal spec -v
+    - stage: test-build
+      script: make
 
 notifications:
   email: false
