@@ -26,7 +26,7 @@ module Ked
     EOF
   end
 
-  alias TokenValue = String | Char | Int | Float
+  alias TokenValue = String | Char | Int32 | Float64
 
   class Token
     getter token_type : TokenType
