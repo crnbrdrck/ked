@@ -100,7 +100,7 @@ For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-Please be aware that `ked` used the Gitflow Workflow (not for any reason other than I've wanted to try it out) so keep that in mind when making your merge requests, thanks :)
+**Please make all Pull Requests to the `develop` branch and not the master branch**
 
 ## Contributors
 
