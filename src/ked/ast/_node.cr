@@ -5,7 +5,7 @@ module Ked
   module AST
     class Node
       def to_s
-        ""
+        "#{self.class.name}"
       end
     end
   end
