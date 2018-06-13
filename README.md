@@ -26,6 +26,8 @@ Stay tuned ;)
 3. Build the binary: `make`
 4. (Optionally) Install the binary to your path: `sudo make install`
 
+To remove, simply do `sudo make clean` which will clean up any directories and files made by the install process
+
 ## Usage
 
 TODO: Write usage instructions here
