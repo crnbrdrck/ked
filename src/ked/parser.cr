@@ -53,7 +53,7 @@ module Ked
     end
 
     # statement_list: statement LIKE | statement LIKE statement_list
-    private def statement_list : Array(AST::Node)
+    private def statement_list : Array(AST::Assign | AST::NoOp)
       # There's guaranteed to be at least one statement and a LIKE terminator
       node = statement
       nodes = [node]
