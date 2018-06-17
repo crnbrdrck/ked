@@ -36,5 +36,16 @@ describe Ked do
       interpreter.interpret
       interpreter.global_scope.should eq expected
     end
+
+    it "should generate an error when attempting to interpret the examples/bad_example.ked script" do
+      # Now generate expected data and check that it is correctly generated
+      text = File.read "examples/bad_example.ked"
+      puts "\nContents of bad_example.ked:\n#{text}"
+      # Create an interpreter to interpret the text
+      interpreter = Ked::Interpreter.new text
+      expect_raises(Exception) do
+        interpreter.interpret
+      end
+    end
   end
 end
