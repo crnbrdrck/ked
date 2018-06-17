@@ -1,17 +1,23 @@
+require "./symbol_table/*"
+
 module Ked
   class Interpreter
     @parser : Parser
-    # Global variable scope. Is actually meant to be an ADT of its own but we're gonna run a Hash as a hack for a little while
-    # It is meant to be an ADT for tracking symbols but since our only symbol currently is variables a Hash should suffice
-    @global_scope = {} of TokenValue => TokenValue
+    # Global scope. Stores the values of all the variables in the program. Whether or not the variables are correctly defined is now handled by our new SymbolTable::Builder class
+    @global_scope : Hash(TokenValue, TokenValue)
+    @symtab_builder : SymbolTable::Builder
 
     def initialize(text : String)
       @parser = Parser.new text
+      @global_scope = {} of TokenValue => TokenValue
+      @symtab_builder = Ked::SymbolTable::Builder.new
     end
 
     def interpret
       tree = @parser.parse
-      # We are now testing by checking the GLOBAL STATE
+      # Build up the symbol table to ensure that everything is properly defined as it should be
+      @symtab_builder.build tree
+      # We are now testing by checking the global_scope
       visit tree
     end
 
@@ -99,15 +105,8 @@ module Ked
 
     # Var nodes
     private def visit(node : AST::Var) : TokenValue
-      # The variable needs to be in the global scope first in order for this to work
-      var_name = node.value
-      var = @global_scope.fetch(var_name, nil)
-      if var.nil?
-        # NameError, variable not in scope
-        raise "NameError: Variable #{var_name} is undefined"
-      end
-      # Just return the received value
-      var
+      # Because of the symbol table builder, we can just assume the variable is defined properly
+      @global_scope[node.value]
     end
 
     # Generic visit, throw exception as we should never get here
@@ -115,8 +114,6 @@ module Ked
       raise "No visit method defined for #{node.class.name}"
     end
 
-    def global_scope : Hash(TokenValue, TokenValue)
-      @global_scope
-    end
+    getter global_scope
   end
 end
