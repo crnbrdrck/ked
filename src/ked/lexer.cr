@@ -89,14 +89,12 @@ module Ked
       # Join result together
       result = result.join ""
       if is_float
-        token_type = TokenType::REAL
         result = result.to_f
       else
-        token_type = TokenType::INTEGER
         result = result.to_i
       end
       # Create and return the token
-      Token.new token_type, result
+      Token.new TokenType::NUMBER, result
     end
 
     # Lexical analyser (also known as scanner or tokeniser)

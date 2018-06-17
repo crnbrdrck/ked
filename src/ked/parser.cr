@@ -10,7 +10,7 @@ module Ked
   # variable:             VAR_PREFIX ID
   # expr:                 term ((PLUS | AWAY_FROM) term)*
   # term:                 factor ((TIMES | INTO | EASY_INTO) factor)*
-  # factor:               UNARY_PLUS factor | MINUS factor | INTEGER | REAL | OPEN_PAREN expr CLOSE_PAREN | variable
+  # factor:               UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
   class Parser
     @lexer : Lexer
@@ -53,7 +53,7 @@ module Ked
     end
 
     # statement_list: statement LIKE | statement LIKE statement_list
-    private def statement_list : Array(AST::Node)
+    private def statement_list : Array(AST::Assign | AST::NoOp)
       # There's guaranteed to be at least one statement and a LIKE terminator
       node = statement
       nodes = [node]
@@ -154,7 +154,7 @@ module Ked
       node
     end
 
-    # factor: UNARY_PLUS factor | MINUS factor | INTEGER | OPEN_PAREN expr CLOSE_PAREN | variable
+    # factor: UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
     private def factor : AST::Node
       token = @current_token
       case token.token_type
@@ -164,11 +164,8 @@ module Ked
       when TokenType::MINUS
         eat TokenType::MINUS
         AST::UnaryOp.new token: token, expr: factor
-      when TokenType::INTEGER
-        eat TokenType::INTEGER
-        AST::Num.new token
-      when TokenType::REAL
-        eat TokenType::REAL
+      when TokenType::NUMBER
+        eat TokenType::NUMBER
         AST::Num.new token
       when TokenType::OPEN_PAREN
         eat TokenType::OPEN_PAREN

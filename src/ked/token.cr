@@ -2,8 +2,7 @@
 module Ked
   enum TokenType
     # Data Types
-    INTEGER
-    REAL
+    NUMBER # integer, float, etc
     # Operators
     PLUS       # 'plus' reserved word
     UNARY_PLUS # '+' unary operator

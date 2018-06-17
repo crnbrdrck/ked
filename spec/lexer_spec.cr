@@ -8,17 +8,17 @@ describe Ked::Lexer do
     end
 
     it "should ignore whitespace in the text" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 3
+      expected = Ked::Token.new Ked::TokenType::NUMBER, 3
       Ked::Lexer.new("    3").get_next_token.should eq expected
     end
 
-    it "should return the correct type of token for an INTEGER" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 3
+    it "should return the correct type of token for an NUMBER" do
+      expected = Ked::Token.new Ked::TokenType::NUMBER, 3
       Ked::Lexer.new("3").get_next_token.should eq expected
     end
 
     it "should be able to handle multi digit integers" do
-      expected = Ked::Token.new Ked::TokenType::INTEGER, 420
+      expected = Ked::Token.new Ked::TokenType::NUMBER, 420
       Ked::Lexer.new("420").get_next_token.should eq expected
     end
 
@@ -55,12 +55,12 @@ describe Ked::Lexer do
     it "should be able to understand a proper statement and turn it into correct lexemes" do
       text = "remember €x = 2 like"
       lexer = Ked::Lexer.new(text)
-      # Tokens in this order: REMEMBER VAR_PREFIX ID ASSIGN INTEGER LIKE
+      # Tokens in this order: REMEMBER VAR_PREFIX ID ASSIGN NUMBER LIKE
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::REMEMBER, "remember")
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::VAR_PREFIX, '€')
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::ID, "x")
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::ASSIGN, '=')
-      lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::INTEGER, 2)
+      lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::NUMBER, 2)
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::LIKE, "like")
       lexer.get_next_token.should eq Ked::Token.new(Ked::TokenType::EOF, Ked::TERMINATOR)
     end

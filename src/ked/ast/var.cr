@@ -10,6 +10,7 @@ module Ked
       end
 
       # Getters
+      getter token
       getter value
     end
   end
