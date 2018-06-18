@@ -2,6 +2,7 @@
 
 ## 0.1.3
 - Added function definitions using the `bai` keyword
+    - They currently are skipped by the language and do nothing however
 
 ## 0.1.2
 - Added a Symbol Table which gets built up from the AST generated from the script
