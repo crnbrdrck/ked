@@ -71,7 +71,7 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [x] Part  9
 - [x] Part 10
 - [x] Part 11
-- [ ] Part 12
+- [x] Part 12
 - [ ] Part 13
 - [ ] Part 14
 
