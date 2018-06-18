@@ -44,7 +44,8 @@ module Ked
     end
 
     private def error
-      raise "Error when parsing input. Current token: #{@current_token.to_s}"
+      # TODO - Print out line that caused the error and put a ^ under the position that caused the error
+      raise "Error when parsing input. Current token: #{@current_token.to_s}, at char #{@lexer.pos}"
     end
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
@@ -71,7 +72,7 @@ module Ked
       # Ensure the opening statement has been terminated
       eat TokenType::LIKE
       # Until we reach an EOF, keep parsing statements
-      while STATEMENT_LIST_END_TOKEN_TYPES.includes? @current_token.token_type
+      while !STATEMENT_LIST_END_TOKEN_TYPES.includes? @current_token.token_type
         nodes << statement
         eat TokenType::LIKE
       end

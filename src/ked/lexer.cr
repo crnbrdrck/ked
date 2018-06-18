@@ -171,5 +171,8 @@ module Ked
       end
       Ked::RESERVED_WORDS.fetch result, Token.new TokenType::ID, result
     end
+
+    # getters
+    getter pos
   end
 end
