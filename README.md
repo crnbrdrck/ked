@@ -89,6 +89,8 @@ If this list grows too big I'll probably group things together to give it a semb
     - `easyInto` operator: Integer division *
 - Unary operators: `+` or `-` signs in front of numbers
 - `£`: comment *
+- `bai`: function definition
+    - NOTE: Function definitions are parsable but currently do nothing
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
