@@ -1,5 +1,7 @@
 # ked
 ![Travis Master Status](https://img.shields.io/travis/crnbrdrck/ked/master.svg)
+[![Latest Release](https://img.shields.io/github/tag/crnbrdrck/ked.svg)](https://github.com/crnbrdrck/ked/releases/latest)
+
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
