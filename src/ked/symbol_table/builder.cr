@@ -28,6 +28,11 @@ module Ked
         visit node.right
       end
 
+      # Definition nodes
+      private def visit(node : AST::Definition)
+        # TODO - Next part of tutorial
+      end
+
       # NoOp nodes
       private def visit(node : AST::NoOp)
         # Do nothing
