@@ -4,9 +4,9 @@ require "./ast/*"
 module Ked
   # Grammar rules
   # program:              statement_list
-  # statement_list:       statement LIKE statement_list | statement LIKE CLOSE_PAREN | statement LIKE EOF
+  # statement_list:       statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
   # statement:            assignment_statement | definition_statement | empty
-  # assignment_statement: REMEMBER variable ASSIGN expr
+  # assignment_statement: REMEMBER variable ASSIGN expr LIKE
   # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
   # variable:             VAR_PREFIX ID
   # expr:                 term ((PLUS | AWAY_FROM) term)*
@@ -17,7 +17,7 @@ module Ked
   # Keep track of TokenTypes that can end a statement list
   STATEMENT_LIST_END_TOKEN_TYPES = [
     TokenType::EOF,
-    TokenType::CLOSE_PAREN,
+    TokenType::CLOSE_BRACE,
   ]
 
   # TypeAlias for statements
@@ -64,17 +64,14 @@ module Ked
       AST::Program.new statement_list
     end
 
-    # statement_list: statement LIKE statement_list | statement LIKE CLOSE_PAREN | statement LIKE EOF
+    # statement_list: statement (statement_list)?
     private def statement_list : Array(Ked::STATEMENT)
       # There's guaranteed to be at least one statement and a LIKE terminator
       nodes = [] of Ked::STATEMENT
       nodes << statement
-      # Ensure the opening statement has been terminated
-      eat TokenType::LIKE
-      # Until we reach an EOF, keep parsing statements
+      # Until we reach an end of list character, keep parsing statements
       while !STATEMENT_LIST_END_TOKEN_TYPES.includes? @current_token.token_type
         nodes << statement
-        eat TokenType::LIKE
       end
 
       # Return the list we parsed
@@ -84,15 +81,17 @@ module Ked
     # statement: assignment_statement | definition_statement | empty
     private def statement : Ked::STATEMENT
       if @current_token.token_type == TokenType::REMEMBER
-        return assignment_statement
+        node = assignment_statement
       elsif @current_token.token_type == TokenType::BAI
-        return definition_statement
+        node = definition_statement
       else
-        return empty
+        node = empty
       end
+      # Return the generated node
+      node
     end
 
-    # assignment_statement: REMEMBER variable ASSIGN expr
+    # assignment_statement: REMEMBER variable ASSIGN expr LIKE
     private def assignment_statement : AST::Assign
       # Ensure statement begins with REMEMBER token
       eat TokenType::REMEMBER
@@ -100,7 +99,8 @@ module Ked
       token = @current_token
       eat TokenType::ASSIGN
       right = expr
-      node = AST::Assign.new left: left, token: token, right: right
+      eat TokenType::LIKE
+      AST::Assign.new left: left, token: token, right: right
     end
 
     # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
