@@ -69,6 +69,7 @@ module Ked
     # Definition Nodes
     private def visit(node : AST::Definition)
       # TODO - Next part of tutorial
+      0
     end
 
     # NoOp nodes
