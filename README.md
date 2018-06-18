@@ -1,5 +1,7 @@
 # ked
 ![Travis Master Status](https://img.shields.io/travis/crnbrdrck/ked/master.svg)
+[![Latest Release](https://img.shields.io/github/tag/crnbrdrck/ked.svg)](https://github.com/crnbrdrck/ked/releases/latest)
+
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
@@ -71,7 +73,7 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [x] Part  9
 - [x] Part 10
 - [x] Part 11
-- [ ] Part 12
+- [x] Part 12
 - [ ] Part 13
 - [ ] Part 14
 
@@ -89,6 +91,8 @@ If this list grows too big I'll probably group things together to give it a semb
     - `easyInto` operator: Integer division *
 - Unary operators: `+` or `-` signs in front of numbers
 - `£`: comment *
+- `bai`: function definition
+    - NOTE: Function definitions are parsable but currently do nothing
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 

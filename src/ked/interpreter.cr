@@ -35,17 +35,17 @@ module Ked
       left_val = visit(node.left).to_s
       right_val = visit(node.right).to_s
       # Try and cast them to the proper types
-      if left_val.to_f?
-        left_val = left_val.to_f
-      elsif left_val.to_i?
+      if left_val.to_i?
         left_val = left_val.to_i
+      elsif left_val.to_f?
+        left_val = left_val.to_f
       else
         raise "BinOp Error: Expected numeric value, Received #{left_val}"
       end
-      if right_val.to_f?
-        right_val = right_val.to_f
-      elsif right_val.to_i?
+      if right_val.to_i?
         right_val = right_val.to_i
+      elsif right_val.to_f?
+        right_val = right_val.to_f
       else
         raise "BinOp Error: Expected numeric value, Received #{right_val}"
       end
@@ -66,6 +66,12 @@ module Ked
       raise "BinOp Error: Expected 'plus', 'awayFrom', 'times', 'into', 'easyInto', Received #{node.op.value}"
     end
 
+    # Definition Nodes
+    private def visit(node : AST::Definition)
+      # TODO - Next part of tutorial
+      0
+    end
+
     # NoOp nodes
     private def visit(node : AST::NoOp)
       0
@@ -74,12 +80,12 @@ module Ked
     # Num nodes
     private def visit(node : AST::Num) : Int32 | Float64
       val = node.value.to_s
-      if val.to_f?
-        # It's a float
-        return val.to_f
-      elsif val.to_i?
+      if val.to_i?
         # It's an integer
         return val.to_i
+      elsif val.to_f?
+        # It's a float
+        return val.to_f
       else
         raise "AST::Num: Invalid value. Expected numeric type, got #{val} (#{typeof(val)})"
       end

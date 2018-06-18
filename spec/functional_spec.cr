@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 describe Ked do
-  describe "Interpreter Global State" do
+  describe "Interpreter Global Scope" do
     it "should contain the correct information after parsing the examples/example1.ked script" do
       # Now generate expected data and check that it is correctly generated
       expected = {
@@ -31,6 +31,17 @@ describe Ked do
       }
       text = File.read "examples/example2.ked"
       puts "\nContents of example2.ked:\n#{text}"
+      # Create an interpreter to interpret the text
+      interpreter = Ked::Interpreter.new text
+      interpreter.interpret
+      interpreter.global_scope.should eq expected
+    end
+
+    it "should contain the correct information after parsing the examples/example3.ked script" do
+      # Now generate expected data and check that it is correctly generated
+      expected = {"num2" => 4}
+      text = File.read "examples/example3.ked"
+      puts "\nContents of example3.ked:\n#{text}"
       # Create an interpreter to interpret the text
       interpreter = Ked::Interpreter.new text
       interpreter.interpret

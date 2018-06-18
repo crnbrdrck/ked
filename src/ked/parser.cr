@@ -4,14 +4,25 @@ require "./ast/*"
 module Ked
   # Grammar rules
   # program:              statement_list
-  # statement_list:       statement LIKE statement_list | statement LIKE EOF
-  # statement:            assignment_statement | empty
-  # assignment_statement: REMEMBER variable ASSIGN expr
+  # statement_list:       statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
+  # statement:            assignment_statement | definition_statement | empty
+  # assignment_statement: REMEMBER variable ASSIGN expr LIKE
+  # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
   # variable:             VAR_PREFIX ID
   # expr:                 term ((PLUS | AWAY_FROM) term)*
   # term:                 factor ((TIMES | INTO | EASY_INTO) factor)*
   # factor:               UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
+
+  # Keep track of TokenTypes that can end a statement list
+  STATEMENT_LIST_END_TOKEN_TYPES = [
+    TokenType::EOF,
+    TokenType::CLOSE_BRACE,
+  ]
+
+  # TypeAlias for statements
+  alias STATEMENT = (AST::Assign | AST::Definition | AST::NoOp)
+
   class Parser
     @lexer : Lexer
     @current_token : Token
@@ -33,7 +44,8 @@ module Ked
     end
 
     private def error
-      raise "Error when parsing input. Current token: #{@current_token.to_s}"
+      # TODO - Print out line that caused the error and put a ^ under the position that caused the error
+      raise "Error when parsing input. Current token: #{@current_token.to_s}, at char #{@lexer.pos}"
     end
 
     # Compare the current token type with the passed token type and if they match then "eat" the current token and assign the next token to current token, otherwise raise an exception
@@ -52,43 +64,62 @@ module Ked
       AST::Program.new statement_list
     end
 
-    # statement_list: statement LIKE | statement LIKE statement_list
-    private def statement_list : Array(AST::Assign | AST::NoOp)
+    # statement_list: statement (statement_list)?
+    private def statement_list : Array(Ked::STATEMENT)
       # There's guaranteed to be at least one statement and a LIKE terminator
-      node = statement
-      nodes = [node]
-      # Ensure the opening statement has been terminated
-      eat TokenType::LIKE
-      # Until we reach an EOF, keep parsing statements
-      while @current_token.token_type != TokenType::EOF
+      nodes = [] of Ked::STATEMENT
+      nodes << statement
+      # Until we reach an end of list character, keep parsing statements
+      while !STATEMENT_LIST_END_TOKEN_TYPES.includes? @current_token.token_type
         nodes << statement
-        eat TokenType::LIKE
       end
 
       # Return the list we parsed
       nodes
     end
 
-    # statement: assignment_statement | empty
-    private def statement : AST::Node
+    # statement: assignment_statement | definition_statement | empty
+    private def statement : Ked::STATEMENT
       if @current_token.token_type == TokenType::REMEMBER
         node = assignment_statement
+      elsif @current_token.token_type == TokenType::BAI
+        node = definition_statement
       else
         node = empty
       end
-      # Return the found node
+      # Return the generated node
       node
     end
 
-    # assignment_statement: REMEMBER variable ASSIGN expr
-    private def assignment_statement : AST::Node
+    # assignment_statement: REMEMBER variable ASSIGN expr LIKE
+    private def assignment_statement : AST::Assign
       # Ensure statement begins with REMEMBER token
       eat TokenType::REMEMBER
       left = variable
       token = @current_token
       eat TokenType::ASSIGN
       right = expr
-      node = AST::Assign.new left: left, token: token, right: right
+      eat TokenType::LIKE
+      AST::Assign.new left: left, token: token, right: right
+    end
+
+    # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
+    private def definition_statement : AST::Definition
+      # Eat the definition Token
+      eat TokenType::BAI
+      func_name = @current_token.value.to_s
+      eat TokenType::ID
+      # Get parameter list
+      eat TokenType::OPEN_PAREN
+      # TODO
+      eat TokenType::CLOSE_PAREN
+      # Start the function
+      eat TokenType::OPEN_BRACE
+      stmnts = statement_list
+      # Ensure function closed properly
+      eat TokenType::CLOSE_BRACE
+      # Create a definition node and return it
+      AST::Definition.new func_name, stmnts
     end
 
     # variable: VAR_PREFIX ID
@@ -103,7 +134,7 @@ module Ked
     end
 
     # empty:
-    private def empty : AST::Node
+    private def empty : AST::NoOp
       # Return a NoOp node
       # Still unsure if we need this at all
       AST::NoOp.new

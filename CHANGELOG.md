@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.3
+- Added function definitions using the `bai` keyword
+    - They currently are skipped by the language and do nothing however
+- Resolved an issue where integer style number variables are being parsed like float style numbers
+
 ## 0.1.2
 - Added a Symbol Table which gets built up from the AST generated from the script
     - Symbol Table keeps track of defined symbols, removing the checks from the interpreter's global_scope
