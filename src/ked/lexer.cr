@@ -10,7 +10,7 @@ module Ked
     "times"    => Token.new(TokenType::TIMES, "times"),
     "into"     => Token.new(TokenType::INTO, "into"),
     "easyInto" => Token.new(TokenType::EASY_INTO, "easyInto"),
-    "bai" => Token.new(TokenType::BAI, "bai"),
+    "bai"      => Token.new(TokenType::BAI, "bai"),
   }
 
   # The terminator character marking the end of input
