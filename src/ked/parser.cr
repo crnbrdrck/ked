@@ -21,7 +21,7 @@ module Ked
   ]
 
   # TypeAlias for statements
-  alias STATEMENT = AST::Assign | AST::Definition | AST::NoOp
+  alias STATEMENT = (AST::Assign | AST::Definition | AST::NoOp)
 
   class Parser
     @lexer : Lexer
@@ -66,8 +66,8 @@ module Ked
     # statement_list: statement LIKE statement_list | statement LIKE CLOSE_PAREN | statement LIKE EOF
     private def statement_list : Array(Ked::STATEMENT)
       # There's guaranteed to be at least one statement and a LIKE terminator
-      node = statement
-      nodes = [node]
+      nodes = [] of Ked::STATEMENT
+      nodes << statement
       # Ensure the opening statement has been terminated
       eat TokenType::LIKE
       # Until we reach an EOF, keep parsing statements
@@ -83,14 +83,12 @@ module Ked
     # statement: assignment_statement | definition_statement | empty
     private def statement : Ked::STATEMENT
       if @current_token.token_type == TokenType::REMEMBER
-        node = assignment_statement
+        return assignment_statement
       elsif @current_token.token_type == TokenType::BAI
-        node = definition_statement
+        return definition_statement
       else
-        node = empty
+        return empty
       end
-      # Return the found node
-      node
     end
 
     # assignment_statement: REMEMBER variable ASSIGN expr
@@ -108,7 +106,7 @@ module Ked
     private def definition_statement : AST::Definition
       # Eat the definition Token
       eat TokenType::BAI
-      func_name = @current_token.value
+      func_name = @current_token.value.to_s
       eat TokenType::ID
       # Get parameter list
       eat TokenType::OPEN_PAREN
@@ -119,7 +117,7 @@ module Ked
       stmnts = statement_list
       # Ensure function closed properly
       eat TokenType::CLOSE_BRACE
-      # Create a definition node
+      # Create a definition node and return it
       AST::Definition.new func_name, stmnts
     end
 
