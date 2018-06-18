@@ -17,7 +17,6 @@ describe Ked do
       interpreter = Ked::Interpreter.new text
       interpreter.interpret
       interpreter.global_scope.should eq expected
-      puts interpreter.global_scope
     end
 
     it "should contain the correct information after parsing the examples/example2.ked script" do
@@ -36,7 +35,6 @@ describe Ked do
       interpreter = Ked::Interpreter.new text
       interpreter.interpret
       interpreter.global_scope.should eq expected
-      puts interpreter.global_scope
     end
 
     it "should contain the correct information after parsing the examples/example3.ked script" do
@@ -48,7 +46,6 @@ describe Ked do
       interpreter = Ked::Interpreter.new text
       interpreter.interpret
       interpreter.global_scope.should eq expected
-      puts interpreter.global_scope
     end
 
     it "should generate an error when attempting to interpret the examples/bad_example.ked script" do
