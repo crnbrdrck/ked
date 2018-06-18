@@ -1,0 +1,39 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Ked
+file_extensions:
+  - ked
+scope: source.ked
+contexts:
+  main:
+    # Numbers
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.ked
+
+    # Variables
+    - match: '\b€[A-Za-z]+\b'
+      scope: variable.other.ked
+
+    # Operators
+    - match: '\b(plus|awayFrom|times|into|easyInto)\b'
+      scope: keyword.operator.word.ked
+
+    - match: '='
+      scope: keyword.operator.assignment.ked
+
+    # Keywords
+    - match: '\b(remember|like)\b'
+      scope: keyword.other.ked
+
+    - match: '\b(bai)\b'
+      scope: keyword.other.ked
+
+    # Comments
+    - match: '£'
+      push: line_comment
+
+  line_comment:
+    - meta_scope: comment.line.ked
+    - match: $
+      pop: true
