@@ -48,6 +48,15 @@ describe Ked do
       interpreter.global_scope.should eq expected
     end
 
+    it "can correctly parse examples/example4.ked" do
+      # Now generate expected data and check that it is correctly generated
+      text = File.read "examples/example4.ked"
+      puts "\nContents of example4.ked:\n#{text}"
+      # Create an interpreter to interpret the text
+      interpreter = Ked::Interpreter.new text
+      interpreter.interpret
+    end
+
     it "should generate an error when attempting to interpret the examples/bad_example.ked script" do
       # Now generate expected data and check that it is correctly generated
       text = File.read "examples/bad_example.ked"

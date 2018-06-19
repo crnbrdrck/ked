@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.4
+- Added function parameter handling using nested scope tables
+    - Functions **still** do not work though, but I'll get there someday
+- More importantly, `saysI` statements are now understood by the interpreter, so you can now print your variables!
+
 ## 0.1.3
 - Added function definitions using the `bai` keyword
     - They currently are skipped by the language and do nothing however

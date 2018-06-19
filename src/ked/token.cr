@@ -17,6 +17,8 @@ module Ked
     # Braces
     OPEN_BRACE
     CLOSE_BRACE
+    # Comma
+    COMMA
     # Statements
     LIKE       # End of statement
     REMEMBER   # Variable assignment
@@ -24,6 +26,7 @@ module Ked
     VAR_PREFIX # (€) - Denotes variable ids
     ID         # Denotes identifier for variable / function / class
     BAI        # Function def keyword
+    SAYS_I     # Print Statement
     # Other Stuff
     SOF # StartOfFile, just used to remove nils. SOF will never be used anywhere other than the default initialization of the Parser
     EOF

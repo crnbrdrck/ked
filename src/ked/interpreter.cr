@@ -66,8 +66,8 @@ module Ked
       raise "BinOp Error: Expected 'plus', 'awayFrom', 'times', 'into', 'easyInto', Received #{node.op.value}"
     end
 
-    # Definition Nodes
-    private def visit(node : AST::Definition)
+    # Function Nodes
+    private def visit(node : AST::Function)
       # TODO - Next part of tutorial
       0
     end
@@ -89,6 +89,14 @@ module Ked
       else
         raise "AST::Num: Invalid value. Expected numeric type, got #{val} (#{typeof(val)})"
       end
+    end
+
+    # Print nodes
+    private def visit(node : AST::Print)
+      # Get the value to print out
+      value = visit(node.expr)
+      # Print it out
+      puts value
     end
 
     # Program nodes

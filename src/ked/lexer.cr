@@ -11,6 +11,7 @@ module Ked
     "into"     => Token.new(TokenType::INTO, "into"),
     "easyInto" => Token.new(TokenType::EASY_INTO, "easyInto"),
     "bai"      => Token.new(TokenType::BAI, "bai"),
+    "saysI"    => Token.new(TokenType::SAYS_I, "saysI"),
   }
 
   # The terminator character marking the end of input
@@ -135,6 +136,9 @@ module Ked
         elsif @current_char == '}'
           self.advance
           return Token.new TokenType::CLOSE_BRACE, '}'
+        elsif @current_char == ','
+          self.advance
+          return Token.new TokenType::COMMA, ','
         end
 
         # Now check for the tokens that make up multiple characters

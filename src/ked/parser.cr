@@ -3,15 +3,17 @@ require "./ast/*"
 # TODO: Documentation
 module Ked
   # Grammar rules
-  # program:              statement_list
-  # statement_list:       statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
-  # statement:            assignment_statement | definition_statement | empty
-  # assignment_statement: REMEMBER variable ASSIGN expr LIKE
-  # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
-  # variable:             VAR_PREFIX ID
-  # expr:                 term ((PLUS | AWAY_FROM) term)*
-  # term:                 factor ((TIMES | INTO | EASY_INTO) factor)*
-  # factor:               UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
+  # program:               statement_list
+  # statement_list:        statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
+  # statement:             assignment_statement | print_statement | definition_statement | empty
+  # assignment_statement:  REMEMBER variable ASSIGN expr LIKE
+  # print_statement:       SAYS_I expr LIKE
+  # definition_statement:  BAI ID OPEN_PAREN formal_parameter_list CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
+  # formal_parameter_list: variable (COMMA variable)* | empty
+  # variable:              VAR_PREFIX ID
+  # expr:                  term ((PLUS | AWAY_FROM) term)*
+  # term:                  factor ((TIMES | INTO | EASY_INTO) factor)*
+  # factor:                UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
 
   # Keep track of TokenTypes that can end a statement list
@@ -21,7 +23,7 @@ module Ked
   ]
 
   # TypeAlias for statements
-  alias STATEMENT = (AST::Assign | AST::Definition | AST::NoOp)
+  alias STATEMENT = (AST::Assign | AST::Function | AST::Print | AST::NoOp)
 
   class Parser
     @lexer : Lexer
@@ -82,6 +84,8 @@ module Ked
     private def statement : Ked::STATEMENT
       if @current_token.token_type == TokenType::REMEMBER
         node = assignment_statement
+      elsif @current_token.token_type == TokenType::SAYS_I
+        node = print_statement
       elsif @current_token.token_type == TokenType::BAI
         node = definition_statement
       else
@@ -103,15 +107,26 @@ module Ked
       AST::Assign.new left: left, token: token, right: right
     end
 
+    # print_statement: SAYS_I expr LIKE
+    private def print_statement : AST::Print
+      eat TokenType::SAYS_I
+      # Generate the expression to print
+      to_print = expr
+      eat TokenType::LIKE
+      # Generate a print node
+      AST::Print.new to_print
+    end
+
     # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
-    private def definition_statement : AST::Definition
+    private def definition_statement : AST::Function
       # Eat the definition Token
       eat TokenType::BAI
       func_name = @current_token.value.to_s
       eat TokenType::ID
       # Get parameter list
       eat TokenType::OPEN_PAREN
-      # TODO
+      # Get the parameters
+      params = formal_parameter_list
       eat TokenType::CLOSE_PAREN
       # Start the function
       eat TokenType::OPEN_BRACE
@@ -119,7 +134,25 @@ module Ked
       # Ensure function closed properly
       eat TokenType::CLOSE_BRACE
       # Create a definition node and return it
-      AST::Definition.new func_name, stmnts
+      AST::Function.new func_name, params, stmnts
+    end
+
+    # formal_parameter_list: variable (COMMA variable)* | empty
+    def formal_parameter_list : Array(AST::Param)
+      params = [] of AST::Param
+      # See if we have any params at all first
+      if @current_token.token_type != TokenType::VAR_PREFIX
+        return params
+      end
+      # We have at least one parameter if it gets to this point so add it
+      params << AST::Param.new variable
+      # Now do a while loop checking for COMMA tokens
+      while @current_token.token_type == TokenType::COMMA
+        eat TokenType::COMMA
+        params << AST::Param.new variable
+      end
+      # Return our parameter list
+      params
     end
 
     # variable: VAR_PREFIX ID
