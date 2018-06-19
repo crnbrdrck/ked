@@ -35,7 +35,7 @@ module Ked
         params = [] of Symbol::Var
         # Now create the nested scope for the function call and insert the parameters into it
         outer_scope = @current_scope
-        @current_scope = ScopedTable.new node.func_name, outer_scope.scope_level + 1
+        @current_scope = ScopedTable.new node.func_name, outer_scope.scope_level + 1, outer_scope
         # Insert the node parameters into the function scope and add their symbols to the params array
         node.params.each do |p|
           symbol = Symbol::Var.new p.node.value.to_s
