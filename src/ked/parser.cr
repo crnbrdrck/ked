@@ -3,15 +3,16 @@ require "./ast/*"
 # TODO: Documentation
 module Ked
   # Grammar rules
-  # program:              statement_list
-  # statement_list:       statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
-  # statement:            assignment_statement | definition_statement | empty
-  # assignment_statement: REMEMBER variable ASSIGN expr LIKE
-  # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
-  # variable:             VAR_PREFIX ID
-  # expr:                 term ((PLUS | AWAY_FROM) term)*
-  # term:                 factor ((TIMES | INTO | EASY_INTO) factor)*
-  # factor:               UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
+  # program:               statement_list
+  # statement_list:        statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
+  # statement:             assignment_statement | definition_statement | empty
+  # assignment_statement:  REMEMBER variable ASSIGN expr LIKE
+  # definition_statement:  BAI ID OPEN_PAREN formal_parameter_list CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
+  # formal_parameter_list: variable (COMMA variable)* | empty
+  # variable:              VAR_PREFIX ID
+  # expr:                  term ((PLUS | AWAY_FROM) term)*
+  # term:                  factor ((TIMES | INTO | EASY_INTO) factor)*
+  # factor:                UNARY_PLUS factor | MINUS factor | NUMBER | OPEN_PAREN expr CLOSE_PAREN | variable
   # empty:
 
   # Keep track of TokenTypes that can end a statement list
@@ -111,7 +112,8 @@ module Ked
       eat TokenType::ID
       # Get parameter list
       eat TokenType::OPEN_PAREN
-      # TODO
+      # Get the parameters
+      params = formal_parameter_list
       eat TokenType::CLOSE_PAREN
       # Start the function
       eat TokenType::OPEN_BRACE
@@ -119,7 +121,25 @@ module Ked
       # Ensure function closed properly
       eat TokenType::CLOSE_BRACE
       # Create a definition node and return it
-      AST::Definition.new func_name, stmnts
+      AST::Definition.new func_name, params, stmnts
+    end
+
+    # formal_parameter_list: variable (COMMA variable)* | empty
+    def formal_parameter_list : Array(AST::Param)
+      params = [] of AST::Param
+      # See if we have any params at all first
+      if @current_token.token_type != TokenType::VAR_PREFIX
+        return params
+      end
+      # We have at least one parameter if it gets to this point so add it
+      params << AST::Param.new variable
+      # Now do a while loop checking for COMMA tokens
+      while @current_token.token_type == TokenType::COMMA
+        eat TokenType::COMMA
+        params << AST::Param.new variable
+      end
+      # Return our parameter list
+      params
     end
 
     # variable: VAR_PREFIX ID
