@@ -7,13 +7,7 @@ module Ked
       @_symbols : Hash(String, Symbol::Base)
       @parent_scope : ScopedTable?
 
-      def initialize(@scope_name : String, @scope_level : Int32)
-        @_symbols = {} of String => Symbol::Base
-        @parent_scope = nil
-        self.initialize_builtins
-      end
-
-      def initialize(@scope_name : String, @scope_level : Int32, @parent_scope : ScopedTable)
+      def initialize(@scope_name : String, @scope_level : Int32, @parent_scope : ScopedTable?)
         @_symbols = {} of String => Symbol::Base
         self.initialize_builtins
       end
@@ -23,6 +17,10 @@ module Ked
 
       # Function that automatically populates the symbol table with any necessary builtin symbols
       def initialize_builtins
+        # Only do anything here if we're at scope level 0
+        if @scope_level != 0
+          return
+        end
         # Create symbols for our `number` data type
         self.insert Symbol::BuiltinType.new "NUMBER"
       end

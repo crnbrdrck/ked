@@ -4,7 +4,7 @@ module Ked
     @current_scope : ScopedTable
 
     class Builder
-      @current_scope = ScopedTable.new "global", 1
+      @current_scope = ScopedTable.new "builtins", 0, nil
 
       def build(node : AST::Node)
         # Attempts to build a symbol table from the given root node
@@ -74,9 +74,13 @@ module Ked
       # Program nodes
       private def visit(node : AST::Program)
         # For this, just visit each of the statements that the program has
+        # Move out of the `builtins` scope into the global scope
+        outer_scope = @current_scope
+        @current_scope = ScopedTable.new "global", 1, outer_scope
         node.statements.each do |stmnt|
           visit stmnt
         end
+        @current_scope = outer_scope
       end
 
       # UnaryOp Nodes
