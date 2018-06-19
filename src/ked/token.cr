@@ -17,6 +17,8 @@ module Ked
     # Braces
     OPEN_BRACE
     CLOSE_BRACE
+    # Comma
+    COMMA
     # Statements
     LIKE       # End of statement
     REMEMBER   # Variable assignment
