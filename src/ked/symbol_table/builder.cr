@@ -67,6 +67,11 @@ module Ked
         # Do nothing
       end
 
+      # Print nodes
+      private def visit(node : AST::Print)
+        # Do nothing
+      end
+
       # Program nodes
       private def visit(node : AST::Program)
         # For this, just visit each of the statements that the program has

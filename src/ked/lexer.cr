@@ -11,6 +11,7 @@ module Ked
     "into"     => Token.new(TokenType::INTO, "into"),
     "easyInto" => Token.new(TokenType::EASY_INTO, "easyInto"),
     "bai"      => Token.new(TokenType::BAI, "bai"),
+    "saysI"    => Token.new(TokenType::SAYS_I, "saysI"),
   }
 
   # The terminator character marking the end of input

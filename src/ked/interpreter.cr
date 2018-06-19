@@ -91,6 +91,14 @@ module Ked
       end
     end
 
+    # Print nodes
+    private def visit(node : AST::Print)
+      # Get the value to print out
+      value = visit(node.expr)
+      # Print it out
+      puts value
+    end
+
     # Program nodes
     private def visit(node : AST::Program) : Int
       # For this, just visit each of the statements that the program has

@@ -5,8 +5,9 @@ module Ked
   # Grammar rules
   # program:               statement_list
   # statement_list:        statement (statement_list)? CLOSE_PAREN | statement (statement_list)? EOF
-  # statement:             assignment_statement | definition_statement | empty
+  # statement:             assignment_statement | print_statement | definition_statement | empty
   # assignment_statement:  REMEMBER variable ASSIGN expr LIKE
+  # print_statement:       SAYS_I expr LIKE
   # definition_statement:  BAI ID OPEN_PAREN formal_parameter_list CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
   # formal_parameter_list: variable (COMMA variable)* | empty
   # variable:              VAR_PREFIX ID
@@ -22,7 +23,7 @@ module Ked
   ]
 
   # TypeAlias for statements
-  alias STATEMENT = (AST::Assign | AST::Function | AST::NoOp)
+  alias STATEMENT = (AST::Assign | AST::Function | AST::Print | AST::NoOp)
 
   class Parser
     @lexer : Lexer
@@ -83,6 +84,8 @@ module Ked
     private def statement : Ked::STATEMENT
       if @current_token.token_type == TokenType::REMEMBER
         node = assignment_statement
+      elsif @current_token.token_type == TokenType::SAYS_I
+        node = print_statement
       elsif @current_token.token_type == TokenType::BAI
         node = definition_statement
       else
@@ -102,6 +105,16 @@ module Ked
       right = expr
       eat TokenType::LIKE
       AST::Assign.new left: left, token: token, right: right
+    end
+
+    # print_statement: SAYS_I expr LIKE
+    private def print_statement : AST::Print
+      eat TokenType::SAYS_I
+      # Generate the expression to print
+      to_print = expr
+      eat TokenType::LIKE
+      # Generate a print node
+      AST::Print.new to_print
     end
 
     # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
