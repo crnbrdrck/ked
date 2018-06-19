@@ -5,8 +5,15 @@ module Ked
     # ADT for managing symbols in a program
     class ScopedTable
       @_symbols : Hash(String, Symbol::Base)
+      @parent_scope : ScopedTable?
 
       def initialize(@scope_name : String, @scope_level : Int32)
+        @_symbols = {} of String => Symbol::Base
+        @parent_scope = nil
+        self.initialize_builtins
+      end
+
+      def initialize(@scope_name : String, @scope_level : Int32, @parent_scope : ScopedTable)
         @_symbols = {} of String => Symbol::Base
         self.initialize_builtins
       end
@@ -28,8 +35,9 @@ module Ked
           "\n",
           header,
           "=" * header.size,
-          "Scope Name     : #{@scope_name}",
-          "Scope level    : #{@scope_level}",
+          "Scope Name      : #{@scope_name}",
+          "Scope level     : #{@scope_level}",
+          "Enclosing Scope : #{@parent_scope.scope_name if @parent_scope else "None"}"
           sub_header,
           '-' * sub_header.size,
         ]
@@ -51,8 +59,13 @@ module Ked
       # Helper method that performs a lookup for a symbol given a name and returns the symbol or nil if none can be found
       def lookup(name : String) : Symbol::Base?
         # Print out name for debug purposes
-        # Try and get the corresponding symbol for the name and return it, or nil if none exists
-        @_symbols.fetch name, nil
+        # Try and get the corresponding symbol for the name and return it, checking parent_scope if needed, or nil if none exists in any scope in the tree of this scope
+        current_scope_result = @_symbols.fetch name, nil
+        # If it's not in this scope, check the parent (if one exists)
+        if current_scope.nil? && !@parent_scope.nil?
+          return @parent_scope.lookup name
+        end
+        return current_scope
       end
     end
   end
