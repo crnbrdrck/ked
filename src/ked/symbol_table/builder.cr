@@ -1,10 +1,10 @@
 module Ked
   module SymbolTable
     # Class for automating the creation of a SymbolTable instance
-    @symtab : Table
+    @symtab : ScopedTable
 
     class Builder
-      @symtab = Table.new
+      @symtab = ScopedTable.new "global", 1
 
       def build(node : AST::Node)
         # Attempts to build a symbol table from the given root node
@@ -16,7 +16,7 @@ module Ked
       private def visit(node : AST::Assign)
         # Add the left hand side (variable) to the symbol table
         name = node.left.value
-        @symtab.define Symbol::Var.new name.to_s
+        @symtab.insert Symbol::Var.new name.to_s
         # Now go visit the right hand side of the assignment statement
         visit node.right
       end
