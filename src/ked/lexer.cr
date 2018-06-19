@@ -135,6 +135,9 @@ module Ked
         elsif @current_char == '}'
           self.advance
           return Token.new TokenType::CLOSE_BRACE, '}'
+        elsif @current_char == ','
+          self.advance
+          return Token.new TokenType::COMMA, ','
         end
 
         # Now check for the tokens that make up multiple characters
