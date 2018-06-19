@@ -75,7 +75,10 @@ As stated earlier, I am following a [tutorial](https://ruslanspivak.com/lsbasi-p
 - [x] Part 11
 - [x] Part 12
 - [ ] Part 13
-- [ ] Part 14
+- [x] Part 14
+- [ ] Part 15
+- [ ] Part 16
+- [ ] Part 17
 
 ### Implemented Features
 This is an ever growing list of the current features supported in the `ked` language.
@@ -93,6 +96,8 @@ If this list grows too big I'll probably group things together to give it a semb
 - `£`: comment *
 - `bai`: function definition
     - NOTE: Function definitions are parsable but currently do nothing
+    - ANOTHER NOTE: Parameter lists are now parsable
+- `saysI`: printing to stdout (called *The Echo* in `ked`)
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
 
