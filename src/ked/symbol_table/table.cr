@@ -11,6 +11,9 @@ module Ked
         self.initialize_builtins
       end
 
+      getter scope_name
+      getter scope_level
+
       # Function that automatically populates the symbol table with any necessary builtin symbols
       def initialize_builtins
         # Create symbols for our `number` data type

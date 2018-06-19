@@ -31,8 +31,30 @@ module Ked
       # Function nodes
       private def visit(node : AST::Function)
         # Add the definition to the current scope, store it and create a new scope whose name is the name of the function and whose level is 1 more than the current
+        # Create an array of Var symbols to pass into the function symbol
+        params = [] of Symbol::Var
+        # Now create the nested scope for the function call and insert the parameters into it
+        outer_scope = @current_scope
+        @current_scope = ScopedTable.new node.func_name, outer_scope.scope_level + 1
+        # Insert the node parameters into the function scope and add their symbols to the params array
+        node.params.each do |p|
+          symbol = Symbol::Var.new p.node.value.to_s
+          @current_scope.insert symbol
+          params << symbol
+        end
         # Create a Definition Symbol from the current node and add it to the current scope
+        symbol = Symbol::Function.new node.func_name, params # Later handle return types when I go back to part 13 of the tutorial
+        # Insert this symbol into the current scope
+        outer_scope.insert symbol
 
+        # Now go visit the node's statements with the new scope
+        node.statement_list.each do |stmnt|
+          visit stmnt
+        end
+
+        # Return to the outer scope
+        puts @current_scope.to_s
+        @current_scope = outer_scope
       end
 
       # NoOp nodes
