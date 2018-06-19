@@ -1,10 +1,10 @@
 module Ked
   module SymbolTable
     # Class for automating the creation of a SymbolTable instance
-    @symtab : ScopedTable
+    @current_scope : ScopedTable
 
     class Builder
-      @symtab = ScopedTable.new "global", 1
+      @current_scope = ScopedTable.new "global", 1
 
       def build(node : AST::Node)
         # Attempts to build a symbol table from the given root node
@@ -16,7 +16,7 @@ module Ked
       private def visit(node : AST::Assign)
         # Add the left hand side (variable) to the symbol table
         name = node.left.value
-        @symtab.insert Symbol::Var.new name.to_s
+        @current_scope.insert Symbol::Var.new name.to_s
         # Now go visit the right hand side of the assignment statement
         visit node.right
       end
@@ -28,9 +28,11 @@ module Ked
         visit node.right
       end
 
-      # Definition nodes
-      private def visit(node : AST::Definition)
-        # TODO - Next part of tutorial
+      # Function nodes
+      private def visit(node : AST::Function)
+        # Add the definition to the current scope, store it and create a new scope whose name is the name of the function and whose level is 1 more than the current
+        # Create a Definition Symbol from the current node and add it to the current scope
+
       end
 
       # NoOp nodes
@@ -61,7 +63,7 @@ module Ked
       private def visit(node : AST::Var)
         # Ensure that the var node exists (has been assigned already)
         name = node.value.to_s
-        if @symtab.lookup(name).nil?
+        if @current_scope.lookup(name).nil?
           raise "NameError: '#{name}' has not been defined"
         end
       end

@@ -22,7 +22,7 @@ module Ked
   ]
 
   # TypeAlias for statements
-  alias STATEMENT = (AST::Assign | AST::Definition | AST::NoOp)
+  alias STATEMENT = (AST::Assign | AST::Function | AST::NoOp)
 
   class Parser
     @lexer : Lexer
@@ -105,7 +105,7 @@ module Ked
     end
 
     # definition_statement: BAI ID OPEN_PAREN CLOSE_PAREN OPEN_BRACE statement_list CLOSE_PAREN
-    private def definition_statement : AST::Definition
+    private def definition_statement : AST::Function
       # Eat the definition Token
       eat TokenType::BAI
       func_name = @current_token.value.to_s
@@ -121,7 +121,7 @@ module Ked
       # Ensure function closed properly
       eat TokenType::CLOSE_BRACE
       # Create a definition node and return it
-      AST::Definition.new func_name, params, stmnts
+      AST::Function.new func_name, params, stmnts
     end
 
     # formal_parameter_list: variable (COMMA variable)* | empty

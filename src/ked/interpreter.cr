@@ -66,8 +66,8 @@ module Ked
       raise "BinOp Error: Expected 'plus', 'awayFrom', 'times', 'into', 'easyInto', Received #{node.op.value}"
     end
 
-    # Definition Nodes
-    private def visit(node : AST::Definition)
+    # Function Nodes
+    private def visit(node : AST::Function)
       # TODO - Next part of tutorial
       0
     end
