@@ -31,15 +31,19 @@ module Ked
       def to_s
         header = "SCOPE (SCOPED SYMBOL TABLE)"
         sub_header = "Scope (Scoped symbol table) contents"
+        enclosing_scope_name = "None"
+        if !@parent_scope.nil?
+          enclosing_scope_name = @parent_scope.not_nil!.scope_name
+        end
         lines = [
           "\n",
           header,
           "=" * header.size,
           "Scope Name      : #{@scope_name}",
           "Scope level     : #{@scope_level}",
-          "Enclosing Scope : #{@parent_scope.scope_name if @parent_scope else "None"}"
+          "Enclosing Scope : #{enclosing_scope_name}",
           sub_header,
-          '-' * sub_header.size,
+          "-" * sub_header.size,
         ]
         # Get the scope contents
         @_symbols.each do |k, v|
@@ -62,10 +66,10 @@ module Ked
         # Try and get the corresponding symbol for the name and return it, checking parent_scope if needed, or nil if none exists in any scope in the tree of this scope
         current_scope_result = @_symbols.fetch name, nil
         # If it's not in this scope, check the parent (if one exists)
-        if current_scope.nil? && !@parent_scope.nil?
-          return @parent_scope.lookup name
+        if current_scope_result.nil? && !@parent_scope.nil?
+          return @parent_scope.not_nil!.lookup name
         end
-        return current_scope
+        return current_scope_result
       end
     end
   end

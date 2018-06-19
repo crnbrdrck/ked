@@ -38,7 +38,7 @@ module Ked
         @current_scope = ScopedTable.new node.func_name, outer_scope.scope_level + 1, outer_scope
         # Insert the node parameters into the function scope and add their symbols to the params array
         node.params.each do |p|
-          symbol = Symbol::Var.new p.node.value.to_s
+          symbol = Symbol::Var.new p.var_node.value.to_s
           @current_scope.insert symbol
           params << symbol
         end
