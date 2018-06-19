@@ -53,7 +53,6 @@ module Ked
         end
 
         # Return to the outer scope
-        puts @current_scope.to_s
         @current_scope = outer_scope
       end
 
