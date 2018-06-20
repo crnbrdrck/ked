@@ -23,7 +23,7 @@ contexts:
       scope: keyword.operator.assignment.ked
 
     # Keywords
-    - match: '\b(remember|like)\b'
+    - match: '\b(remember|like|saysI)\b'
       scope: keyword.other.ked
 
     - match: '\b(bai)\b'
