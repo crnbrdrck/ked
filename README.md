@@ -5,6 +5,9 @@
 
 The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
 
+# Note
+I went halfsies on a book about writing interpreters with my buddy Noah, so I'll be re-doing this project from scratch following that, and then `ked` should be even better :D
+
 ## Table Of Contents
 - [ked-lang Documentation](#ked-lang-documentation)
 - [But Why?](#but-why)
