@@ -29,7 +29,17 @@ module Ked
 
   # Class for managing Tokens
   class Token
-    def initialize(@type : TokenType, @literal : String)
+    # These are for a production environment for handling errors
+    # We'll add handling for these at a later date
+    @file_name : String = "" # Keeps track of the file from which the token was generated
+    @line_num : Int32 = -1   # Keeps track of which line of the file the token was generated
+    @char_num : Int32 = -1   # Keeps track of the position of where the token was generated
+
+    def initialize(@token_type : TokenType, @literal : String)
     end
+
+    # Getters
+    getter token_type
+    getter literal
   end
 end
