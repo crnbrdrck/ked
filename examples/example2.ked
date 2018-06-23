@@ -1,0 +1,12 @@
+remember €number = 2 like
+remember €a = €number like
+remember €b = 10 times €a plus 4 easyInto (10 times €number) like
+remember €c = -€b awayFrom €a like
+remember €x = 11 like
+remember €y = 7 into 20 plus 3.14 like
+£ saysI 'a = ' em €a like
+£ saysI 'b = ' em €b like
+£ saysI 'c = ' em €c like
+£ saysI 'number = ' em €number like
+£ saysI 'x = ' em €x like
+£ saysI 'y = ' em €y like

@@ -1,0 +1,2 @@
+£ This is a bad example to ensure that the SymbolTable::Builder throws an error when the script attempts to use a variable that does not exist
+remember €x = €y like

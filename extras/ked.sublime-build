@@ -1,0 +1,4 @@
+{
+    "cmd": ["ked", "$file"],
+    "selector": "source.ked"
+}

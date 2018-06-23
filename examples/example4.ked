@@ -1,0 +1,6 @@
+bai sayHello(€x) {
+  remember €num = €x like
+  £ saysI "What's the craic world?" like
+}
+remember €num2 = 4 like
+saysI €num2 like
