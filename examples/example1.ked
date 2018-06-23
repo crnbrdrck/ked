@@ -2,7 +2,7 @@ remember €five = 5 like
 remember €ten = 10 like
 
 bai add (€x, €y) {
-    hereYaGoBai €x + €y like
+    hereYaGoBai €x plus €y like
 }
 
 remember €result = add(€five, €ten) like
