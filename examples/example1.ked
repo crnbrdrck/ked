@@ -1,5 +1,8 @@
-remember €number = 2 like
-remember €a = €number like
-remember €b = 10 times €a plus 4 into (10 times €number) like
-remember €c = -€b awayFrom €a like
-remember €x = 11 like
+remember €five = 5 like
+remember €ten = 10 like
+
+bai add (€x, €y) {
+    hereYaGoBai €x + €y like
+}
+
+remember €result = add(€five, €ten) like
