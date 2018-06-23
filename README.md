@@ -8,6 +8,8 @@ The first scripting language of [The People's Republic of Cork](http://en.wikipe
 # Note
 I went halfsies on a book about writing interpreters with my buddy Noah, so I'll be re-doing this project from scratch following that, and then `ked` should be even better :D
 
+Also I'm in the process of writing my [GitHub pages theme](https://github.com/crnbrdrck/storm) which when finished will be used to generate some (hopefully) nice documentation for Ked v2 :D
+
 ## Table Of Contents
 - [ked-lang Documentation](#ked-lang-documentation)
 - [But Why?](#but-why)
