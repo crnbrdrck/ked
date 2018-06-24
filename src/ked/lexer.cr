@@ -49,11 +49,34 @@ module Ked
       when Ked::NULL_CHAR
         token = Token.new TokenType::EOF, ""
       else
-        token = Token.new TokenType::ILLEGAL, @current_char.to_s
+        # We need to check if the current character is a letter, and if so try to generate a keyword token for it
+        if self.is_valid_identifier_char? @current_char
+          value = self.read_identifier
+          token_type = Ked::KEYWORDS.fetch value, TokenType::IDENT
+          # Early return to avoid the extra call to read_char
+          return Token.new token_type, value
+        else
+          token = Token.new TokenType::ILLEGAL, @current_char.to_s
+        end
       end
       # Read the next character and return the created token
       self.read_char
       token
+    end
+
+    # Method that reads in a series of characters as a potential token value
+    def read_identifier
+      pos = @pos
+      while self.is_valid_identifier_char? @current_char
+        self.read_char
+      end
+      # The identifier is the string between pos and @pos
+      @input[pos...@pos]
+    end
+
+    # Helper that checks if the character is a valid character for identifier names
+    def is_valid_identifier_char?(char : Char)
+      char.letter? || char == '_'
     end
   end
 end
