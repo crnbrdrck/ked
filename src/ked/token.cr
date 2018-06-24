@@ -43,11 +43,23 @@ module Ked
   # Mapping of keywords to their respective token type
   # Dev note; Order should match order in the TokenType Enum
   KEYWORDS = {
-    "plus"        => TokenType::ADDITION,
-    "like"        => TokenType::LIKE,
-    "bai"         => TokenType::FUNCTION,
-    "remember"    => TokenType::REMEMBER,
-    "hereYaGoBai" => TokenType::RETURN,
+    "plus"          => TokenType::ADDITION,
+    "awayFrom"      => TokenType::SUBTRACTION,
+    "times"         => TokenType::MULTIPLICATION,
+    "into"          => TokenType::DIVISION,
+    "is"            => TokenType::EQUALITY,
+    "not"           => TokenType::NEGATION,
+    "isNot"         => TokenType::INEQUALITY,
+    "isSmallerThan" => TokenType::LT,
+    "isBiggerThan"  => TokenType::GT,
+    "like"          => TokenType::LIKE,
+    "bai"           => TokenType::FUNCTION,
+    "remember"      => TokenType::REMEMBER,
+    "hereYaGoBai"   => TokenType::RETURN,
+    "gospel"        => TokenType::TRUE,
+    "bull"          => TokenType::FALSE,
+    "eh"            => TokenType::IF,
+    "orEvenJust"    => TokenType::ELSE,
   }
 
   # Class for managing Tokens
