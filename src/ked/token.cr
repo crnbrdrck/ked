@@ -27,6 +27,16 @@ module Ked
     RETURN   # 'hereYaGoBai' for returning from a function
   end
 
+  # Mapping of keywords to their respective token type
+  # Dev note; Order should match order in the TokenType Enum
+  KEYWORDS = {
+    "plus"        => TokenType::ADDITION,
+    "like"        => TokenType::LIKE,
+    "bai"         => TokenType::FUNCTION,
+    "remember"    => TokenType::REMEMBER,
+    "hereYaGoBai" => TokenType::RETURN,
+  }
+
   # Class for managing Tokens
   class Token
     # These are for a production environment for handling errors
