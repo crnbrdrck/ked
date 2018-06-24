@@ -33,18 +33,21 @@ describe Ked::Lexer do
       input = File.read "examples/example1.ked"
       # Generate a list of tokens that we expect
       expected = [
+        # remember €five = 5 like
         Ked::Token.new(Ked::TokenType::REMEMBER, "remember"),
         Ked::Token.new(Ked::TokenType::VAR_PREFIX, "€"),
         Ked::Token.new(Ked::TokenType::IDENT, "five"),
         Ked::Token.new(Ked::TokenType::ASSIGN, "="),
         Ked::Token.new(Ked::TokenType::NUMBER, "5"),
         Ked::Token.new(Ked::TokenType::LIKE, "like"),
+        # remember €ten = 10 like
         Ked::Token.new(Ked::TokenType::REMEMBER, "remember"),
         Ked::Token.new(Ked::TokenType::VAR_PREFIX, "€"),
         Ked::Token.new(Ked::TokenType::IDENT, "ten"),
         Ked::Token.new(Ked::TokenType::ASSIGN, "="),
         Ked::Token.new(Ked::TokenType::NUMBER, "10"),
         Ked::Token.new(Ked::TokenType::LIKE, "like"),
+        # bai add (€x, €y) {
         Ked::Token.new(Ked::TokenType::FUNCTION, "bai"),
         Ked::Token.new(Ked::TokenType::IDENT, "add"),
         Ked::Token.new(Ked::TokenType::LPAREN, "("),
@@ -55,6 +58,7 @@ describe Ked::Lexer do
         Ked::Token.new(Ked::TokenType::IDENT, "y"),
         Ked::Token.new(Ked::TokenType::RPAREN, ")"),
         Ked::Token.new(Ked::TokenType::LBRACE, "{"),
+        #     hereYaGoBai €x plus €y like
         Ked::Token.new(Ked::TokenType::RETURN, "hereYaGoBai"),
         Ked::Token.new(Ked::TokenType::VAR_PREFIX, "€"),
         Ked::Token.new(Ked::TokenType::IDENT, "x"),
@@ -62,7 +66,9 @@ describe Ked::Lexer do
         Ked::Token.new(Ked::TokenType::VAR_PREFIX, "€"),
         Ked::Token.new(Ked::TokenType::IDENT, "y"),
         Ked::Token.new(Ked::TokenType::LIKE, "like"),
+        # }
         Ked::Token.new(Ked::TokenType::RBRACE, "}"),
+        # remember €result = add(€five, €ten) like
         Ked::Token.new(Ked::TokenType::REMEMBER, "remember"),
         Ked::Token.new(Ked::TokenType::VAR_PREFIX, "€"),
         Ked::Token.new(Ked::TokenType::IDENT, "result"),
