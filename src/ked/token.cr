@@ -1,8 +1,8 @@
 module Ked
   enum TokenType
     # Extra, special tokens
-    ILLEGAL # Unknown token
-    EOF     # End of file
+    ILLEGAL # Unknown token, this usually means an error
+    EOF     # End Of File
 
     # Identifiers / Literals
     IDENT      # add, foobar, x, y, etc
@@ -73,8 +73,11 @@ module Ked
     def initialize(@token_type : TokenType, @literal : String)
     end
 
+    def initialize(@token_type : TokenType, @literal : String, @file_name : String, @line_num : Int32, @char_num : Int32)
+    end
+
     def to_s
-      "Token(#{@token_type}, #{literal})"
+      "Token(#{@token_type}, #{literal}) (#{@file_name}:#{@line_num}:#{@char_num})"
     end
 
     # Getters
