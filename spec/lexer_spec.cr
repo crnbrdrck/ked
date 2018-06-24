@@ -30,7 +30,7 @@ describe Ked::Lexer do
 
     it "should generate the correct list of tokens when the input is the text of examples/example1.ked" do
       # Generate the input and pass it through the lexer to ensure it works correctly
-      input = File.read "../examples/example1.ked"
+      input = File.read "examples/example1.ked"
       # Generate a list of tokens that we expect
       expected = [
         Ked::Token.new(Ked::TokenType::REMEMBER, "remember"),
