@@ -56,6 +56,9 @@ module Ked
         token = Token.new TokenType::COMMA, ","
       when '€'
         token = Token.new TokenType::VAR_PREFIX, "€"
+      when '!'
+        # 'not' and '!' are interchangable
+        token = Token.new TokenType::NEGATION, "!"
       when Ked::NULL_CHAR
         token = Token.new TokenType::EOF, ""
       else
