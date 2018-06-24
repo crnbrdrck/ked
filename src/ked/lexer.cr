@@ -13,11 +13,11 @@ module Ked
     # TODO - Change input to be a file and use line / character based positioning instead of pos in String
     def initialize(@input : String)
       # Initialize the current_char
-      self.read_char
+      self.read_next_char
     end
 
     # Read the next character in the input, checking first to see if we have reached the end of the input
-    def read_char
+    def read_next_char
       if @read_pos >= @input.size
         @current_char = Ked::NULL_CHAR
       else
@@ -28,8 +28,18 @@ module Ked
       @read_pos += 1
     end
 
+    # Skips whitespace characters entirely as they don't mean anything in ked
+    def skip_whitespace_chars
+      # TODO - Handle EOL tokens separately when we move to line based lexing
+      while @current_char == ' ' || @current_char == '\t' || @current_char == '\n' || @current_char == '\r'
+        self.read_next_char
+      end
+    end
+
     # Generate the next token from the input
     def get_next_token : Ked::Token
+      # Skip whitespace before reading next token
+      self.skip_whitespace_chars
       token : Ked::Token
       case @current_char
       when '='
@@ -53,14 +63,14 @@ module Ked
         if self.is_valid_identifier_char? @current_char
           value = self.read_identifier
           token_type = Ked::KEYWORDS.fetch value, TokenType::IDENT
-          # Early return to avoid the extra call to read_char
+          # Early return to avoid the extra call to read_next_char
           return Token.new token_type, value
         else
           token = Token.new TokenType::ILLEGAL, @current_char.to_s
         end
       end
       # Read the next character and return the created token
-      self.read_char
+      self.read_next_char
       token
     end
 
@@ -68,7 +78,7 @@ module Ked
     def read_identifier
       pos = @pos
       while self.is_valid_identifier_char? @current_char
-        self.read_char
+        self.read_next_char
       end
       # The identifier is the string between pos and @pos
       @input[pos...@pos]
