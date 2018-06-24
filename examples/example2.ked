@@ -1,0 +1,19 @@
+remember €true = gospel like
+remember €false = bull like
+eh (€true is bull) {
+    remember €x = 2 into 4 like
+}
+orEvenJust {
+    remember €x = 2 awayFrom 4 like
+}
+remember €y = 5 times €x like
+
+eh (not €y isBiggerThan 10) {
+    remember €z = 2 like
+}
+eh (€y isSmallerThan 10) {
+    remember €z = 3 like
+}
+eh (€y isNot 10) {
+    remember €z = 4 like
+}
