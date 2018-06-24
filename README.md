@@ -78,6 +78,17 @@ These are the versions that are being built following the *Interpreter in Go* bo
 
 Hopefully it will be better and more fully featured, but I will still be having to translate both Go into Crystal and Monkey (the language developed in the book) into Ked.
 
+### Book Chapters
+Below is a list of the chapters in the [book](https://interpreterbook.com/) that I am following.
+
+This list can be used to see at a glance the dev status of the project
+
+- [ ] Chapter 1: Lexing
+- [ ] Chapter 2: Parsing
+- [ ] Chapter 3: Evaluation
+- [ ] Chapter 4: Extending The Interpreter
+- [ ] The Lost Chapter
+
 ### Implemented Features
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
