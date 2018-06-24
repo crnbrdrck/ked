@@ -73,6 +73,10 @@ module Ked
     def initialize(@token_type : TokenType, @literal : String)
     end
 
+    def to_s
+      "Token(#{@token_type}, #{literal})"
+    end
+
     # Getters
     getter token_type
     getter literal
