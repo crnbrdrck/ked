@@ -7,26 +7,30 @@ module Ked
   HELP_TEXT_FOREWARD = "\u001b[31mked\u001b[0m: The first Corkonian scripting language.
 See the language specification at https://adamlynch.com/ked/.
 
-Currently this interpreter is a WIP.
+Currently this interpreter is a WIP. It doesn't even interpret anything yet.
+
 Supported features:\u001b[36m
-  - Variable assignment
+  - Lexing tokens
+  - A REPL environment that lexes whatever you type in stdin
 \u001b[0m
 To see the code and maybe even contribute, visit https://github.com/crnbrdrck/ked
 
 Usage:
-  ked [options] feen.ked - Run the script called `feen.ked`
+  ked [options] [file] - Run the script called `file`
+    - If no file is passed in, starts the REPL environment instead
 
   Options:"
 end
 
 # option vars
 version = false
-debug = false
+# debug = false
+help = false
 
 option_parser = OptionParser.new
 option_parser.banner = Ked::HELP_TEXT_FOREWARD
-option_parser.on("-d", "--debug", "Print the status of the global variable scope after parsing the script") { debug = true }
-option_parser.on("-h", "--help", "Show this help message") { puts option_parser }
+# option_parser.on("-d", "--debug", "Print the status of the global variable scope after parsing the script") { debug = true }
+option_parser.on("-h", "--help", "Show this help message") { help = true }
 option_parser.on("-v", "--version", "Print version information") { version = true }
 
 # Entrypoint; get the file to execute from argv and attempt to run it (for now, print out global scope)
@@ -43,6 +47,10 @@ else
   end
   # If not, get the file name from argv and run it
   # With the options, the filename should now be the last argument
+  if help
+    puts option_parser
+    Process.exit 0
+  end
   file = ARGV[-1]
   begin
     text = File.read file
