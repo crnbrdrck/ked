@@ -71,7 +71,7 @@ A little way of checking the progress of the development of the `ked` programmin
 ### v0.1
 Any releases at this version were written following [this tutorial](https://ruslanspivak.com/lsbasi-part1/) and they work somewhat.
 
-This code is still available under [releases](https://github.com/crnbrdrck/ked/releases).
+This code is still available under [releases](https://github.com/crnbrdrck/ked/releases), and is viewable on the [lsbasi-archive](https://github.com/crnbrdrck/ked/tree/lsbasi-archive) branch.
 
 ### v0.2 and onwards
 These are the versions that are being built following the *Interpreter in Go* book.
