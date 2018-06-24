@@ -65,6 +65,8 @@ module Ked
           token_type = Ked::KEYWORDS.fetch value, TokenType::IDENT
           # Early return to avoid the extra call to read_next_char
           return Token.new token_type, value
+        elsif @current_char.to_i?
+          return Token.new TokenType::NUMBER, self.read_number
         else
           token = Token.new TokenType::ILLEGAL, @current_char.to_s
         end
@@ -81,6 +83,17 @@ module Ked
         self.read_next_char
       end
       # The identifier is the string between pos and @pos
+      @input[pos...@pos]
+    end
+
+    # Method to read in multi digit numbers
+    def read_number
+      pos = @pos
+      # TODO - Add float handling
+      while @current_char.to_i?
+        self.read_next_char
+      end
+      # The number is the string between pos and @pos
       @input[pos...@pos]
     end
 
