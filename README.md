@@ -83,7 +83,7 @@ Below is a list of the chapters in the [book](https://interpreterbook.com/) that
 
 This list can be used to see at a glance the dev status of the project
 
-- [ ] Chapter 1: Lexing
+- [x] Chapter 1: Lexing
 - [ ] Chapter 2: Parsing
 - [ ] Chapter 3: Evaluation
 - [ ] Chapter 4: Extending The Interpreter
