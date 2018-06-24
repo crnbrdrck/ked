@@ -48,11 +48,11 @@ else
     puts "\u001b[31mFile '#{file}' could not be read\u001b[0m"
     Process.exit 1
   end
-  interpreter = Ked::Interpreter.new text
-  interpreter.interpret
+  # interpreter = Ked::Interpreter.new text
+  # interpreter.interpret
 
-  # If the user has specified debug, print the global scope
-  if debug
-    puts interpreter.global_scope
-  end
+  # # If the user has specified debug, print the global scope
+  # if debug
+  #   puts interpreter.global_scope
+  # end
 end
