@@ -23,17 +23,19 @@ end
 version = false
 debug = false
 
-parser = OptionParser.new
-parser.banner = Ked::HELP_TEXT_FOREWARD
-parser.on("-d", "--debug", "Print the status of the global variable scope after parsing the script") { debug = true }
-parser.on("-h", "--help", "Show this help message") { puts parser }
-parser.on("-v", "--version", "Print version information") { version = true }
+option_parser = OptionParser.new
+option_parser.banner = Ked::HELP_TEXT_FOREWARD
+option_parser.on("-d", "--debug", "Print the status of the global variable scope after parsing the script") { debug = true }
+option_parser.on("-h", "--help", "Show this help message") { puts option_parser }
+option_parser.on("-v", "--version", "Print version information") { version = true }
 
 # Entrypoint; get the file to execute from argv and attempt to run it (for now, print out global scope)
 if ARGV.size == 0
-  puts parser
+  # Here we want to enter the REPL loop
+  puts "\u001b[31mked\u001b[0m version #{Ked::VERSION}"
+  Ked::REPL.new
 else
-  parser.parse!
+  option_parser.parse!
   # Check if the user wants the version information
   if version
     puts "\u001b[31mked\u001b[0m version #{Ked::VERSION}"
