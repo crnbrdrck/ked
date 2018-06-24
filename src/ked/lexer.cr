@@ -48,6 +48,8 @@ module Ked
         token = Token.new TokenType::VAR_PREFIX, "€"
       when Ked::NULL_CHAR
         token = Token.new TokenType::EOF, ""
+      else
+        token = Token.new TokenType::ILLEGAL, @current_char.to_s
       end
       # Read the next character and return the created token
       self.read_char
