@@ -10,8 +10,8 @@ module Ked
     NUMBER     # integers and floats are both number tokens but will use Int and Float internally (inlike JS >.>)
 
     # Operators
-    ASSIGN # = for assignment
-    PLUS   # 'plus'
+    ASSIGN   # = for assignment
+    ADDITION # 'plus' operator for addition
 
     # Delimiters
     COMMA  # ','
