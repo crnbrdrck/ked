@@ -9,9 +9,18 @@ module Ked
     VAR_PREFIX # € symbol denotes variables
     NUMBER     # integers and floats are both number tokens but will use Int and Float internally (inlike JS >.>)
 
-    # Operators
-    ASSIGN   # = for assignment
-    ADDITION # 'plus' operator for addition
+    # Operators (note that awayFrom and times work in the opposite direction)
+    # 2 awayFrom 4 == 4 - 2
+    ASSIGN         # = for assignment
+    ADDITION       # 'plus' operator for addition
+    SUBTRACTION    # 'awayFrom' operator for subtraction
+    MULTIPLICATION # 'times' operator for multiplication
+    DIVISION       # 'into' operator for division
+    EQUALITY       # 'is' (==)
+    NEGATION       # 'not' for negation
+    INEQUALITY     # 'isNot' (!=)
+    LT             # 'isSmallerThan' (>)
+    GT             # 'isBiggerThan' (<)
 
     # Delimiters
     COMMA  # ','
@@ -25,6 +34,10 @@ module Ked
     FUNCTION # 'bai' for function definition
     REMEMBER # 'remember' for variable assignment
     RETURN   # 'hereYaGoBai' for returning from a function
+    TRUE     # 'gospel'
+    FALSE    # 'bull'
+    IF       # 'eh'
+    ELSE     # 'orEvenJust'
   end
 
   # Mapping of keywords to their respective token type
