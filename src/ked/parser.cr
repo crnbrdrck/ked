@@ -24,12 +24,62 @@ module Ked
       statement_list = [] of AST::Statement
       while @current_token.token_type != TokenType::EOF
         statement_node = self.parse_statement
-        if not statement_node.nil?
+        if !statement_node.nil?
           statement_list << statement_node
         end
         self.get_next_token
       end
       AST::Program.new statement_list
+    end
+
+    # Parse a statement and create the corresponding node for it
+    def parse_statement : AST::Statement | Nil
+      case @current_token.token_type
+      when TokenType::REMEMBER
+        # Parse and create a remember statement
+        self.parse_remember_statement
+      else
+        # Return nil since we haven't found a statement
+        nil
+      end
+    end
+
+    # Parse a remember statement and create an AST::RememberStatement node to go along with it, or nil if its an invalid remember statement
+    def parse_remember_statement : AST::RememberStatement | Nil
+      # Save the current token
+      remember_token = @current_token
+      # So by the syntax for ked, if current_token is remember then the next token should be a var_prefix token
+      if !self.eat TokenType::VAR_PREFIX
+        return nil
+      end
+      # Try to get the IDENT token
+      if !self.eat TokenType::IDENT
+        return nil
+      end
+      # At this point, the ident token is the current token. With this we can create an Identifier node
+      ident = AST::Identifier.new @current_token, @current_token.literal
+      # Check for an assignment token
+      if !self.eat TokenType::ASSIGN
+        return nil
+      end
+      # Skip over the expression part for the time being
+      # TODO - Handle expressions properly
+      while @current_token.token_type != TokenType::LIKE
+        self.get_next_token
+      end
+      # Create the statement node
+      AST::RememberStatement.new remember_token, ident, AST::Expression.new
+    end
+
+    # Check that the peek token is the same as type as the type passed in.
+    # If so, advance tokens as a side effect
+    def eat(token_type : TokenType) : Bool
+      if @peek_token.token_type == token_type
+        self.get_next_token
+        true
+      else
+        false
+      end
     end
   end
 end
