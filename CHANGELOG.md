@@ -2,6 +2,8 @@
 
 ## 0.2.0
 - Moved to a new tutorial to rewrite the interpreter in hopefully a better way
+    - Added new way of handling the lexing process
+    - Added a simple REPL environment that lexes stdin
 
 ## 0.1.4
 - Added function parameter handling using nested scope tables
