@@ -15,6 +15,9 @@ module Ked
       def token_literal : String
         @token.literal
       end
+
+      getter token
+      getter value
     end
   end
 end
