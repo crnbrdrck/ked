@@ -73,12 +73,12 @@ Any releases at this version were written following [this tutorial](https://rusl
 
 This code is still available under [releases](https://github.com/crnbrdrck/ked/releases), and is viewable on the [lsbasi-archive](https://github.com/crnbrdrck/ked/tree/lsbasi-archive) branch.
 
-### v0.2 and onwards
+### v0.2
 These are the versions that are being built following the *Interpreter in Go* book.
 
 Hopefully it will be better and more fully featured, but I will still be having to translate both Go into Crystal and Monkey (the language developed in the book) into Ked.
 
-### Book Chapters
+#### Book Chapters
 Below is a list of the chapters in the [book](https://interpreterbook.com/) that I am following.
 
 This list can be used to see at a glance the dev status of the project
@@ -89,7 +89,7 @@ This list can be used to see at a glance the dev status of the project
 - [ ] Chapter 4: Extending The Interpreter
 - [ ] The Lost Chapter
 
-### Implemented Features
+#### Implemented Features
 This is an ever growing list of the current features supported in the `ked` language.
 If this list grows too big I'll probably group things together to give it a semblance of structure
 
@@ -98,6 +98,11 @@ If this list grows too big I'll probably group things together to give it a semb
 - Nothing right now because I'm starting from scratch
 
 For more info, see the [CHANGELOG](CHANGELOG.md) to see what changed and when
+
+### And Beyond?
+Probably nothing. This repo has been me experimenting with learning how languages work in an attempt to start making my own.
+
+Once I finish the book, I'll start planning out [sapphire](https://github.com/crnbrdrck/sapphire) in greater detail and start hashing it out into what I want it to be.
 
 ## Contributing
 
