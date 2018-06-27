@@ -28,7 +28,7 @@ describe Ked::Parser do
         # Check that the name token's value is the expected ident
         test_remember_statement.name.value.should eq expected_ident
         # Also check that the token_literal method returns the same
-        test_remember_statement.token_literal.should eq expected_ident
+        test_remember_statement.name.token_literal.should eq expected_ident
       end
     end
   end
