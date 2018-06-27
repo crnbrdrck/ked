@@ -21,8 +21,15 @@ module Ked
 
     # Create a Program node and parse the text accordingly
     def parse_program : AST::Program
-      # For now, return an empty list of Statement nodes
-      return AST::Program.new [] of AST::Statement
+      statement_list = [] of AST::Statement
+      while @current_token.token_type != TokenType::EOF
+        statement_node = self.parse_statement
+        if not statement_node.nil?
+          statement_list << statement_node
+        end
+        self.get_next_token
+      end
+      AST::Program.new statement_list
     end
   end
 end
