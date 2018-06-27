@@ -1,3 +1,5 @@
+require "./node"
+
 module Ked
   module AST
     # Class for handling programs
@@ -18,6 +20,8 @@ module Ked
           ""
         end
       end
+
+      getter statements
     end
   end
 end

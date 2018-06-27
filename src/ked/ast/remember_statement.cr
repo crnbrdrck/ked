@@ -1,3 +1,5 @@
+require "./statement"
+
 module Ked
   module AST
     # Class for handling remember statements for assigning variables

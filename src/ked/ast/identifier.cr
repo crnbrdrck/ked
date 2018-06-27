@@ -1,3 +1,5 @@
+require "./expression"
+
 module Ked
   module AST
     # Class for handling Identifier nodes

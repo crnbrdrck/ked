@@ -1,3 +1,5 @@
+require "./node"
+
 module Ked
   module AST
     # Class for `statement` nodes
