@@ -1,3 +1,5 @@
+require "./ast/*"
+
 module Ked
   # Class that takes in a sequence of tokens from a lexer and converts them into an AST based on the grammar rules for ked
   class Parser
