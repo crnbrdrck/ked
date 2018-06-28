@@ -23,7 +23,9 @@ module Ked
     # The File descriptor will be used to generate an array of Strings representing each line of the file, as well as provide a file name to pass to all Token instances.
     def initialize(input : File)
       # Store the name of the file
-      @filename = File.basename input.path
+      # Store the relative path from the place that the ked interpreter was run
+      cwd = Dir.current
+      @filename = input.path.split(cwd)[-1]
       # Get the lines of the file
       @input = File.read_lines input.path
       # Start lexing
