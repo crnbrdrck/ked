@@ -1,10 +1,14 @@
 require "option_parser"
 require "./ked/*"
 
-# TODO: Write documentation for `Ked`
+# Ked is the first scripting language to come out of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\).
+#
+# The docs that follow are indepth documentation for the interpreter for Ked.
+# NOTE: These docs should not be used to learn the language, they are for people who wish to contribute to the language.
 module Ked
-  # NO_INPUT_FILE: help message to display when no input file is specified for the interpreter
-  HELP_TEXT_FOREWARD = "\u001b[31mked\u001b[0m: The first Corkonian scripting language.
+end
+
+banner = "\u001b[31mked\u001b[0m: The first Corkonian scripting language.
 See the language specification at https://adamlynch.com/ked/.
 
 Currently this interpreter is a WIP. It doesn't even interpret anything yet.
@@ -20,7 +24,6 @@ Usage:
     - If no file is passed in, starts the REPL environment instead
 
   Options:"
-end
 
 # option vars
 version = false
@@ -28,7 +31,7 @@ version = false
 help = false
 
 option_parser = OptionParser.new
-option_parser.banner = Ked::HELP_TEXT_FOREWARD
+option_parser.banner = banner
 # option_parser.on("-d", "--debug", "Print the status of the global variable scope after parsing the script") { debug = true }
 option_parser.on("-h", "--help", "Show this help message") { help = true }
 option_parser.on("-v", "--version", "Print version information") { version = true }

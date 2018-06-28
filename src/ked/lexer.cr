@@ -1,12 +1,14 @@
 require "tempfile"
 
 module Ked
-  # Null character
+  # Null character.
+  #
+  # Used to mark the end of the input.
   NULL_CHAR = '\u{0}'
 
-  # Lexer takes source and generates a list of tokens from it
-  # TODO - Lexer should take a File object which enables us to get things like filenames and linenumbers for the Tokens
-  # => This should enable us to generate more meaningful errors
+  # The Lexer reads in Ked code as its source and generates tokens based on it.
+  #
+  # The Lexer works as a generator by calling the `#get_next_token` method.
   class Lexer
     @input : Array(String) = [] of String # The lines of the input file that we are parsing
     @filename : String = "<stdin>"        # For string based input, the filename will be <stdin> but this will be replaced by the actual filename when a file is passed
@@ -16,7 +18,23 @@ module Ked
     @current_line : String = ""           # Current line being read
     @current_char : Char = Ked::NULL_CHAR # Current character being examined
 
-    # TODO - Change input to be a file and use line / character based positioning instead of char_num in String
+    # Create the Lexer by passing in a File descriptor.
+    #
+    # The File descriptor will be used to generate an array of Strings representing each line of the file, as well as provide a file name to pass to all Token instances.
+    def initialize(input : File)
+      # Store the name of the file
+      @filename = File.basename input.path
+      # Get the lines of the file
+      @input = File.read_lines input.path
+      # Start lexing
+      self.read_next_char
+    end
+
+    # Create the Lexer using a String that contains Ked source code.
+    #
+    # The String will be converted into an array of lines, as if it were a File.
+    #
+    # The filename will be set to "<stdin>" as it is currently assumed that this is the only place that this constructor will be called from.
     def initialize(input : String)
       # Create a tempfile for the given input so we can read the lines of it
       tempfile = Tempfile.open("stdin", "ked") do |f|
@@ -29,16 +47,11 @@ module Ked
       self.read_next_char
     end
 
-    def initialize(input : File)
-      # Store the name of the file
-      @filename = File.basename input.path
-      # Get the lines of the file
-      @input = File.read_lines input.path
-      # Start lexing
-      self.read_next_char
-    end
-
-    # Read the next character in the input, checking first to see if we have reached the end of the input
+    # Read the next character in the current line of the input.
+    #
+    # If the end of the current line has been reached, move to the next line.
+    #
+    # If the end of the input has been reached, set the current_char to be `Ked::NULL_CHARACTER`.
     def read_next_char
       # Need to check if we've reached the end of the current line, and if so move to the next one (if one exists)
       if @read_char_num >= @current_line.size
@@ -63,14 +76,19 @@ module Ked
       end
     end
 
-    # Skips whitespace characters entirely as they don't mean anything in ked
+    # Skip all whitespace characters or empty lines that are found in the input.
+    #
+    # Ked uses braces for blocks so whitespace doesn't have much special meaning, so we can just skip them entirely.
     def skip_whitespace_chars
       while @current_char == ' ' || @current_char == '\t' || @current_line == "" || @current_char == '\n' || @current_char == '\r'
         self.read_next_char
       end
     end
 
-    # Generate the next token from the input
+    # Generate the next token from the input.
+    #
+    # First check to see if the current character is a single character token.
+    # If not, check if it is a letter or number and try to generate a keyword / identifier or number token respectively.
     def get_next_token : Ked::Token
       # Skip whitespace before reading next token
       self.skip_whitespace_chars
@@ -116,7 +134,12 @@ module Ked
       token
     end
 
-    # Method that reads in a series of characters as a potential token value
+    # Read a word in from the source.
+    #
+    # The word returned from this method will be checked against `Ked::KEYWORDS` to see if it is a keyword or not.
+    #
+    # If so, the representative TokenType for that keyword will be used to create the token.
+    # If not, a `Ked::TokenType::IDENT` token will be generated with the read word as its value.
     def read_identifier
       char_num = @char_num
       # Save the current line and ending character position due to line breaks
@@ -130,9 +153,10 @@ module Ked
       current_line[char_num...end_char]
     end
 
-    # Method to read in multi digit numbers
+    # Read a multi-digit number from the source.
+    #
+    # TODO - Add float handling
     def read_number
-      # TODO - Add float handling
       char_num = @char_num
       # Save the current line and ending character position due to line breaks
       current_line = @current_line
@@ -145,7 +169,9 @@ module Ked
       current_line[char_num...end_char]
     end
 
-    # Helper that checks if the character is a valid character for identifier names
+    # Helper that determines if a character can be used as part of an identifier / keyword.
+    #
+    # Currently allowed characters are; letters, '_' characters.
     def is_valid_identifier_char?(char : Char)
       char.letter? || char == '_'
     end

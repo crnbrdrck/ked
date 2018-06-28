@@ -2,17 +2,19 @@ require "./node"
 
 module Ked
   module AST
-    # Class for handling programs
-    # Programs are the root node of our AST
-    # In Ked, a Program simply contains an array of statements
+    # Class for handling `program` nodes.
+    #
+    # A `program` node is the root node of our AST.
+    #
+    # In Ked, a `program` simply contains an array of `Ked::AST::Statement` nodes.
     class Program < Node
+      # The array of statements in this `program`.
       @statements : Array(Statement)
 
       def initialize(@statements : Array(Statement))
       end
 
-      # In the Program class. token_literal is a method
-      # And thankfully, Crystal accepts this as long as it returns a string
+      # Generates the token_literal for the `program` node by returning the token_literal for the first statement in the program.
       def token_literal : String
         if @statements.size > 0
           @statements[0].token_literal
@@ -21,6 +23,7 @@ module Ked
         end
       end
 
+      # The array of statements in this `program`.
       getter statements
     end
   end
