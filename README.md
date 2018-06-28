@@ -22,9 +22,9 @@ The first scripting language of [The People's Republic of Cork](http://en.wikipe
     - [Contributors](#contributors)
 
 ## ked-lang Documentation
-See the original [documentation](http://adam-lynch.github.io/ked/) showcasing the initial design of the language.
-
-There will also be documentation more akin to a reference available sometime (not right now basically) at https://crnbrdrck.xyz/ked.
+There are 2 sources of documentation available for Ked lang;
+- The original documentation at http://adam-lynch.github.io/ked/ which shows the initial design ideas of the language.
+- Interpreter documentation at https://crnbrdrck.xyz/ked/ which documents the interpreter code I am writing here. This is more used for people who want to help develop the language.
 
 ## But Why?
 This interpreter is being built by me ([crnbrdrck](https://github.com/crnbrdrck)), in the wonderful Crystal Programming Language.
