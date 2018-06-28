@@ -3,7 +3,7 @@
 [![Latest Release](https://img.shields.io/github/tag/crnbrdrck/ked.svg)](https://github.com/crnbrdrck/ked/releases/latest)
 
 
-The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\)).
+The first scripting language of [The People's Republic of Cork](http://en.wikipedia.org/wiki/Cork_\(city\).
 
 # Note
 
@@ -43,8 +43,7 @@ I'm doing this for a few reasons;
 
 1. Ensure that *Crystal* is installed on your machine: https://crystal-lang.org/docs/installation/
 2. Clone this repo from the master branch: `git clone git@github.com:crnbrdrck/ked.git`
-3. Build the binary: `make`
-    - The binary will be saved to `./bin/`
+3. Build the binary: `make`. The binary will be saved to `./bin/`
 4. (Optionally) Install the binary to your path: `sudo make install`
 
 To remove, simply do `sudo make clean` which will clean up any directories and files made by the install process
@@ -56,13 +55,11 @@ Usage:
   ked [options] feen.ked - Run the script called 'feen.ked'
 
   Options:
-    -d, --debug                      Print the status of the global variable scope after running the script
     -h, --help                       Show this help message
     -v, --version                    Print version information
 ```
 
 - `ked feen.ked` - Run the script named 'feen.ked'
-- `ked -d feen.ked` - Same as above but also prints the current state of the interpreter's global variable state table to stdout
 - `ked -v` - Check the current version of `ked` installed
 
 ## Dev Roadmap
