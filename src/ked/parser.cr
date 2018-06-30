@@ -8,11 +8,16 @@ module Ked
     @lexer : Lexer
     @current_token : Token
     @peek_token : Token
+    @errors : Array(String)
+
+    # Maintain an array of errors that are generated during the parsing
+    getter errors
 
     def initialize(@lexer : Lexer)
       # Read the first two tokens from the lexer to set up both current and peek tokens
       @current_token = @lexer.get_next_token
       @peek_token = @lexer.get_next_token
+      @errors = [] of String
     end
 
     # Read the next token from the Lexer and update both the current and peek tokens accordingly.
@@ -83,6 +88,7 @@ module Ked
         self.get_next_token
         true
       else
+        @errors << "ParserError in #{@peek_token.file_name} at line #{@peek_token.line_num} char #{@peek_token.char_num}: Expected #{token_type.to_s}, received #{@peek_token.token_type.to_s}"
         false
       end
     end

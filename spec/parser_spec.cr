@@ -31,5 +31,21 @@ describe Ked::Parser do
         test_remember_statement.name.token_literal.should eq expected_ident
       end
     end
+
+    it "correctly generates errors when the tokens don't follow the syntax" do
+      input = "remember x = 5 like
+      remember € = 10 like
+      remember €z 700 like"
+      lexer = Ked::Lexer.new input
+      parser = Ked::Parser.new lexer
+
+      parser.parse_program
+      parser.errors.size.should eq 3
+      # Loop through the errors and print them out
+      puts '\n'
+      parser.errors.each do |e|
+        puts e
+      end
+    end
   end
 end
