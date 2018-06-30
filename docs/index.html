@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.25.0">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/crnbrdrck/ked">
+  <title>README - github.com/crnbrdrck/ked</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="github.com/crnbrdrck/ked/Ked" data-name="ked">
+      <a href="Ked.html">Ked</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/crnbrdrck/ked/Ked/AST" data-name="ked::ast">
+      <a href="Ked/AST.html">AST</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Expression" data-name="ked::ast::expression">
+      <a href="Ked/AST/Expression.html">Expression</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Identifier" data-name="ked::ast::identifier">
+      <a href="Ked/AST/Identifier.html">Identifier</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Node" data-name="ked::ast::node">
+      <a href="Ked/AST/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Program" data-name="ked::ast::program">
+      <a href="Ked/AST/Program.html">Program</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/RememberStatement" data-name="ked::ast::rememberstatement">
+      <a href="Ked/AST/RememberStatement.html">RememberStatement</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/ReturnStatement" data-name="ked::ast::returnstatement">
+      <a href="Ked/AST/ReturnStatement.html">ReturnStatement</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Statement" data-name="ked::ast::statement">
+      <a href="Ked/AST/Statement.html">Statement</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/Lexer" data-name="ked::lexer">
+      <a href="Ked/Lexer.html">Lexer</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/Parser" data-name="ked::parser">
+      <a href="Ked/Parser.html">Parser</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/REPL" data-name="ked::repl">
+      <a href="Ked/REPL.html">REPL</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/Token" data-name="ked::token">
+      <a href="Ked/Token.html">Token</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/TokenType" data-name="ked::tokentype">
+      <a href="Ked/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1>ked</h1>
+
+<p><img src="https://img.shields.io/travis/crnbrdrck/ked/master.svg" alt="Travis Master Status"/>
+<a href="https://github.com/crnbrdrck/ked/releases/latest" target="_blank"><img src="https://img.shields.io/github/tag/crnbrdrck/ked.svg" alt="Latest Release"/></a></p>
+
+<p>The first scripting language of <a href="http://en.wikipedia.org/wiki/Cork_\(city\" target="_blank">The People's Republic of Cork</a>).</p>
+
+<h1>Note</h1>
+
+<h2>Table Of Contents</h2>
+
+<ul><li><a href="#ked-lang-documentation" target="_blank">ked-lang Documentation</a></li><li><a href="#but-why" target="_blank">But Why?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#usage" target="_blank">Usage</a></li><li><a href="#dev-roadmap" target="_blank">Dev Roadmap</a></li><ul><li><a href="#v0.1" target="_blank">v0.1</a></li><li><a href="#v0.2" target="_blank">v0.2</a></li><li><a href="#interpreter-tutorial" target="_blank">Interpreter Tutorial</a></li><li><a href="#implemented-features" target="_blank">Implemented Features</a></li></ul><li><a href="#contributing" target="_blank">Contributing</a></li><ul><li><a href="#contributors" target="_blank">Contributors</a></li></ul></ul>
+
+<h2>ked-lang Documentation</h2>
+
+<p>There are 2 sources of documentation available for Ked lang;</p>
+
+<ul><li>The original documentation at http://adam-lynch.github.io/ked/ which shows the initial design ideas of the language.</li><li>Interpreter documentation at https://crnbrdrck.xyz/ked/ which documents the interpreter code I am writing here. This is more used for people who want to help develop the language.</li></ul>
+
+<h2>But Why?</h2>
+
+<p>This interpreter is being built by me (<a href="https://github.com/crnbrdrck" target="_blank">crnbrdrck</a>), in the wonderful Crystal Programming Language.</p>
+
+<p>I will be following <a href="https://interpreterbook.com/" target="_blank">Writing an Interpreter in Go</a> for this new write up of the ked language, but obviously will be translating to Crystal as best I can.</p>
+
+<p>This should not only help me with my Crystal, but also maybe help me learn Go as a side product?</p>
+
+<p>I'm doing this for a few reasons;</p>
+
+<ol><li>I wanted to learn how interpreters function</li><li>I wanted another project to do in Crystal</li><li>I've known about Ked for a while and always assumed it was an actual programming language so I wanted to make it real</li><li>For the fun of it</li></ol>
+
+<h2>Installation</h2>
+
+<ol><li>Ensure that <em>Crystal</em> is installed on your machine: https://crystal-lang.org/docs/installation/</li><li>Clone this repo from the master branch: <code>git clone git@github.com:crnbrdrck/ked.git</code></li><li>Build the binary: <code>make</code>. The binary will be saved to <code>./bin/</code></li><li>(Optionally) Install the binary to your path: <code>sudo make install</code></li></ol>
+
+<p>To remove, simply do <code>sudo make clean</code> which will clean up any directories and files made by the install process</p>
+
+<h2>Usage</h2>
+
+<pre><code><span class="t">Usage</span>:
+  ked [options] feen.ked <span class="o">-</span> <span class="t">Run</span> the script called </code></pre>
+
+<ul><li><code>ked feen.ked</code> - Run the script named 'feen.ked'</li><li><code>ked -v</code> - Check the current version of <code>ked</code> installed</li></ul>
+
+<h2>Dev Roadmap</h2>
+
+<p>A little way of checking the progress of the development of the <code>ked</code> programming language</p>
+
+<h3>v0.1</h3>
+
+<p>Any releases at this version were written following <a href="https://ruslanspivak.com/lsbasi-part1/" target="_blank">this tutorial</a> and they work somewhat.</p>
+
+<p>This code is still available under <a href="https://github.com/crnbrdrck/ked/releases" target="_blank">releases</a>, and is viewable on the <a href="https://github.com/crnbrdrck/ked/tree/lsbasi-archive" target="_blank">lsbasi-archive</a> branch.</p>
+
+<h3>v0.2</h3>
+
+<p>These are the versions that are being built following the <em>Interpreter in Go</em> book.</p>
+
+<p>Hopefully it will be better and more fully featured, but I will still be having to translate both Go into Crystal and Monkey (the language developed in the book) into Ked.</p>
+
+<h4>Book Chapters</h4>
+
+<p>Below is a list of the chapters in the <a href="https://interpreterbook.com/" target="_blank">book</a> that I am following.</p>
+
+<p>This list can be used to see at a glance the dev status of the project</p>
+
+<ul><li>[x] Chapter 1: Lexing</li><li>[ ] Chapter 2: Parsing</li><li>[ ] Chapter 3: Evaluation</li><li>[ ] Chapter 4: Extending The Interpreter</li><li>[ ] The Lost Chapter</li></ul>
+
+<h4>Implemented Features</h4>
+
+<p>This is an ever growing list of the current features supported in the <code>ked</code> language.
+If this list grows too big I'll probably group things together to give it a semblance of structure</p>
+
+<p>*<strong>NOTE</strong>: Anything in the list below marked with an asterisk was something not in the original design doc and is open to debate*</p>
+
+<ul><li>Nothing right now because I'm starting from scratch</li></ul>
+
+<p>For more info, see the <a href="CHANGELOG.md" target="_blank">CHANGELOG</a> to see what changed and when</p>
+
+<h3>And Beyond?</h3>
+
+<p>Probably nothing. This repo has been me experimenting with learning how languages work in an attempt to start making my own.</p>
+
+<p>Once I finish the book, I'll start planning out <a href="https://github.com/crnbrdrck/sapphire" target="_blank">sapphire</a> in greater detail and start hashing it out into what I want it to be.</p>
+
+<h2>Contributing</h2>
+
+<ol><li>Fork it ( https://github.com/[your-github-name]/ked/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+
+<p><strong>Please make all Pull Requests to the <code>develop</code> branch and not the master branch</strong></p>
+
+<h2>Contributors</h2>
+
+<p>Pull-requests encouraged, but contributions are accepted in any form, including <a href="https://github.com/crnbrdrck/ked/issues" target="_blank">issues</a>.</p>
+
+<h3>Contributors</h3>
+
+<ul><li><a href="https://github.com/adam-lynch/" target="_blank">adam-lynch</a> - original designer of the Ked language</li><li><a href="https://github.com/crnbrdrck" target="_blank">crnbrdrck</a> Ciaran Broderick - developed interpreter in crystal</li></ul>
+</div>
+</body>
+</html>
