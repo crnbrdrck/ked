@@ -1,4 +1,5 @@
 require "./statement"
+require "./expression"
 
 module Ked
   module AST
