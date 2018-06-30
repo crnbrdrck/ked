@@ -47,6 +47,9 @@ module Ked
       when TokenType::REMEMBER
         # Parse and create a remember statement
         self.parse_remember_statement
+      when TokenType::RETURN
+        # Parse and create a return (hereYaGoBai) statement
+        self.parse_return_statement
       else
         # Return nil since we haven't found a statement
         nil
@@ -56,6 +59,7 @@ module Ked
     # Parse a `remember statement` and create an `Ked::AST::RememberStatement` node for it.
     #
     # Returns `nil` if the attempted `remember statement` turns out to be invalid.
+    # This will also cause an error to be added to the `errors` array
     def parse_remember_statement : AST::RememberStatement?
       # Save the current token
       remember_token = @current_token
@@ -75,11 +79,27 @@ module Ked
       end
       # Skip over the expression part for the time being
       # TODO - Handle expressions properly
-      while @current_token.token_type != TokenType::LIKE
+      while !@current_token.token_type.like?
         self.get_next_token
       end
       # Create the statement node
       AST::RememberStatement.new remember_token, ident, AST::Expression.new
+    end
+
+    # Parse a `return statement` and create an `Ked::AST::ReturnStatement` node for it.
+    #
+    # Returns `nil` if the attempted `return statement` turns out to be invalid.
+    # This will also cause an error to be added to the `errors` array
+    def parse_return_statement : AST::ReturnStatement?
+      # Save the current token
+      return_token = @current_token
+      # The first thing we should expect after the return statement is simply an expression
+      # We're currently skipping expressions
+      while !@current_token.token_type.like?
+        self.get_next_token
+      end
+      # Create the statement node and return it
+      AST::ReturnStatement.new return_token, AST::Expression.new
     end
 
     # Check that the peek token is the same as type as the type passed in, and advance the current and peek token pointers if so.
