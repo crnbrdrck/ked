@@ -12,6 +12,11 @@ module Ked
       #
       # It is used for debugging purposes
       getter token_literal
+
+      # Returns a string representation of this node
+      def to_s
+        ""
+      end
     end
   end
 end

@@ -10,5 +10,10 @@ module Ked
     class Expression < Node
       @token_literal = "Expression"
     end
+
+    # Returns a string representation of this node
+    def to_s
+      ""
+    end
   end
 end

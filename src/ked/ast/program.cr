@@ -23,6 +23,17 @@ module Ked
         end
       end
 
+      # Returns a string representation of this node
+      def to_s
+        builder = String::Builder.new ""
+        # Loop through all of this node's statements and add their string representations to the string
+        @statements.each do |stmnt|
+          builder << stmnt.to_s
+        end
+        # Turn the builder into a string
+        builder.to_s
+      end
+
       # The array of statements in this `program`.
       getter statements
     end

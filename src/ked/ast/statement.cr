@@ -10,5 +10,10 @@ module Ked
     class Statement < Node
       @token_literal = "Statement"
     end
+
+    # Returns a string representation of this node
+    def to_s
+      ""
+    end
   end
 end

@@ -22,6 +22,12 @@ module Ked
         @token.literal
       end
 
+      # Returns a string representation of this node
+      def to_s
+        # For this, simply return the string value of the expression
+        @value.to_s
+      end
+
       # The `Ked::Token` instance used to create this node
       getter token
       # The expression contained within this statement node

@@ -20,6 +20,22 @@ module Ked
         @token.literal
       end
 
+      # Returns a string representation of this node
+      def to_s
+        builder = String::Builder.new ""
+        # Add the details of the statement to the string builder
+        builder << self.token_literal
+        builder << " €"
+        builder << @name.to_s
+        builder << " = "
+        # Add the string value of the expression to the builder
+        builder << @value.to_s
+        # Add the "like" to the string
+        builder << "like"
+        # Return the built string
+        builder.to_s
+      end
+
       # A `Ked::AST::Identifier` node that represents the name of the variable being assigned to.
       getter name
       # The right hand side of the assignment statement, returns the value to be assigned to the variable.

@@ -19,6 +19,12 @@ module Ked
         @token.literal
       end
 
+      # Returns a string representation of this node
+      def to_s
+        # For this, simply return the name of the identifier
+        @value
+      end
+
       # The `Ked::Token` instance used to create this node.
       getter token
       # The name of the identifier ("x", "add", etc).
