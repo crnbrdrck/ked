@@ -75,6 +75,8 @@ These are the versions that are being built following the *Interpreter in Go* bo
 
 Hopefully it will be better and more fully featured, but I will still be having to translate both Go into Crystal and Monkey (the language developed in the book) into Ked.
 
+**I've decided to put a stop to this. Ever since I came up with the idea to work on [Sapphire](https://github.com/crnbrdrck/sapphire) my heart isn't really in this project anymore >.>**
+
 #### Book Chapters
 Below is a list of the chapters in the [book](https://interpreterbook.com/) that I am following.
 
