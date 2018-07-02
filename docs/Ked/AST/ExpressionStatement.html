@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/crnbrdrck/ked">
-  <title>Ked::AST::Identifier - github.com/crnbrdrck/ked</title>
+  <title>Ked::AST::ExpressionStatement - github.com/crnbrdrck/ked</title>
 </head>
 <body>
 
@@ -51,12 +51,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/ExpressionStatement" data-name="ked::ast::expressionstatement">
+  <li class=" current" data-id="github.com/crnbrdrck/ked/Ked/AST/ExpressionStatement" data-name="ked::ast::expressionstatement">
       <a href="../../Ked/AST/ExpressionStatement.html">ExpressionStatement</a>
       
     </li>
   
-  <li class=" current" data-id="github.com/crnbrdrck/ked/Ked/AST/Identifier" data-name="ked::ast::identifier">
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Identifier" data-name="ked::ast::identifier">
       <a href="../../Ked/AST/Identifier.html">Identifier</a>
       
     </li>
@@ -130,21 +130,23 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Ked::AST::Identifier
+  <span class="kind">class</span> Ked::AST::ExpressionStatement
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Ked/AST/Identifier.html">Ked::AST::Identifier</a></li><li class="superclass"><a href="../../Ked/AST/Expression.html">Ked::AST::Expression</a></li><li class="superclass"><a href="../../Ked/AST/Node.html">Ked::AST::Node</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Ked/AST/ExpressionStatement.html">Ked::AST::ExpressionStatement</a></li><li class="superclass"><a href="../../Ked/AST/Statement.html">Ked::AST::Statement</a></li><li class="superclass"><a href="../../Ked/AST/Node.html">Ked::AST::Node</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
   <h2>Overview</h2>
 
-  <p>Class for handling <code>identifier</code> nodes.</p>
+  <p>Class for handling ExpressionStatement nodes.</p>
 
-<p>These can be variable names, function names, class names, etc.</p>
+<p>An "ExpressionStatement" is a statement that consists of a single expression and nothing else i.e. <code>€x plus 10 like</code>.</p>
+
+<p>This is used solely so we can add expressions that are on their own to our <code>statements</code> list of our program node.</p>
 
 
 
@@ -162,7 +164,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L8" target="_blank">ked/ast/identifier.cr</a>
+      <a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L11" target="_blank">ked/ast/expression_statement.cr</a>
     
     <br/>
   
@@ -175,7 +177,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28token%3AToken%2Cvalue%3AString%29-class-method" class="signature"><strong>.new</strong>(token : Token, value : String)</a>
+        <a href="#new%28token%3AToken%2Cvalue%3AExpression%29-class-method" class="signature"><strong>.new</strong>(token : Token, value : Expression)</a>
         
       </li>
     
@@ -189,7 +191,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#to_s%3AString-instance-method" class="signature"><strong>#to_s</strong> : String</a>
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
           <div class="summary"><p>Returns a string representation of this node</p></div>
         
@@ -198,21 +200,21 @@
       <li class="entry-summary">
         <a href="#token%3AKed%3A%3AToken-instance-method" class="signature"><strong>#token</strong> : Ked::Token</a>
         
-          <div class="summary"><p>The <code><a href="../../Ked/Token.html">Ked::Token</a></code> instance used to create this node.</p></div>
+          <div class="summary"><p>The <code><a href="../../Ked/Token.html">Ked::Token</a></code> instance used to create this node</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#token_literal%3AString-instance-method" class="signature"><strong>#token_literal</strong> : String</a>
         
-          <div class="summary"><p>Return this node's token's literal as the node's literal.</p></div>
+          <div class="summary"><p>Generate the token_literal for this node by returning the literal of the token used to create it</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#value%3AString-instance-method" class="signature"><strong>#value</strong> : String</a>
+        <a href="#value%3AKed%3A%3AAST%3A%3AExpression-instance-method" class="signature"><strong>#value</strong> : Ked::AST::Expression</a>
         
-          <div class="summary"><p>The name of the identifier ("x", "add", etc).</p></div>
+          <div class="summary"><p>The expression contained within this statement node</p></div>
         
       </li>
     
@@ -283,18 +285,18 @@
 
   <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="new(token:Token,value:String)-class-method">
+    <div class="entry-detail" id="new(token:Token,value:Expression)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(token : <a href="../../Ked/Token.html">Token</a>, value : String)
+        def self.<strong>new</strong>(token : <a href="../../Ked/Token.html">Token</a>, value : <a href="../../Ked/AST/Expression.html">Expression</a>)
 
-        <a class="method-permalink" href="#new%28token%3AToken%2Cvalue%3AString%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28token%3AToken%2Cvalue%3AExpression%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -306,12 +308,12 @@
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="to_s:String-instance-method">
+    <div class="entry-detail" id="to_s-instance-method">
       <div class="signature">
         
-        def <strong>to_s</strong> : String
+        def <strong>to_s</strong>
 
-        <a class="method-permalink" href="#to_s%3AString-instance-method">#</a>
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
         <div class="doc"><p>Returns a string representation of this node</p></div>
@@ -319,7 +321,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -332,12 +334,12 @@
         <a class="method-permalink" href="#token%3AKed%3A%3AToken-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The <code><a href="../../Ked/Token.html">Ked::Token</a></code> instance used to create this node.</p></div>
+        <div class="doc"><p>The <code><a href="../../Ked/Token.html">Ked::Token</a></code> instance used to create this node</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -350,30 +352,30 @@
         <a class="method-permalink" href="#token_literal%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return this node's token's literal as the node's literal.</p></div>
+        <div class="doc"><p>Generate the token_literal for this node by returning the literal of the token used to create it</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="value:String-instance-method">
+    <div class="entry-detail" id="value:Ked::AST::Expression-instance-method">
       <div class="signature">
         
-        def <strong>value</strong> : String
+        def <strong>value</strong> : <a href="../../Ked/AST/Expression.html">Ked::AST::Expression</a>
 
-        <a class="method-permalink" href="#value%3AString-instance-method">#</a>
+        <a class="method-permalink" href="#value%3AKed%3A%3AAST%3A%3AExpression-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The name of the identifier ("x", "add", etc).</p></div>
+        <div class="doc"><p>The expression contained within this statement node</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/identifier.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/ast/expression_statement.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.25.0">
+<meta name="generator" content="Crystal Docs 0.25.1">
 
 
 <link href="../css/style.css" rel="stylesheet" type="text/css">
@@ -48,6 +48,11 @@
   
   <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/Expression" data-name="ked::ast::expression">
       <a href="../Ked/AST/Expression.html">Expression</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/crnbrdrck/ked/Ked/AST/ExpressionStatement" data-name="ked::ast::expressionstatement">
+      <a href="../Ked/AST/ExpressionStatement.html">ExpressionStatement</a>
       
     </li>
   
@@ -157,7 +162,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L12" target="_blank">ked/lexer.cr</a>
+      <a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L12" target="_blank">ked/lexer.cr</a>
     
     <br/>
   
@@ -196,6 +201,13 @@
         <a href="#get_next_token%3AKed%3A%3AToken-instance-method" class="signature"><strong>#get_next_token</strong> : Ked::Token</a>
         
           <div class="summary"><p>Generate the next token from the input.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#input%3AArray%28String%29-instance-method" class="signature"><strong>#input</strong> : Array(String)</a>
+        
+          <div class="summary"><p>Getters An array of lines in the file currently being lexed</p></div>
         
       </li>
     
@@ -282,7 +294,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -304,7 +316,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -332,7 +344,26 @@ If not, check if it is a letter or number and try to generate a keyword / identi
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L94" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="input:Array(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>input</strong> : Array(String)
+
+        <a class="method-permalink" href="#input%3AArray%28String%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Getters
+An array of lines in the file currently being lexed</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -352,7 +383,7 @@ If not, check if it is a letter or number and try to generate a keyword / identi
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L177" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L181" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -375,7 +406,7 @@ If not, a <code><a href="../Ked/TokenType.html#IDENT">Ked::TokenType::IDENT</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L145" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L149" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -397,7 +428,7 @@ If not, a <code><a href="../Ked/TokenType.html#IDENT">Ked::TokenType::IDENT</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -417,7 +448,7 @@ If not, a <code><a href="../Ked/TokenType.html#IDENT">Ked::TokenType::IDENT</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L161" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L165" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -437,7 +468,7 @@ If not, a <code><a href="../Ked/TokenType.html#IDENT">Ked::TokenType::IDENT</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/crnbrdrck/ked/blob/dbf5c3fc0bd1c8152b5745dcda1bd0575dd75bd4/src/ked/lexer.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/crnbrdrck/ked/blob/2842330a75434ad81e183029358641fe0663c628/src/ked/lexer.cr#L88" target="_blank">View source</a>]
         
       </div>
     </div>
