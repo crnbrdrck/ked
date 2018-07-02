@@ -9,6 +9,8 @@ module Ked
     @current_token : Token
     @peek_token : Token
     @errors : Array(String)
+    @prefix_parse_functions : Hash(TokenType, (-> AST::Expression))
+    @infix_parse_functions : Hash(TokenType, (AST::Expression -> AST::Expression))
 
     # Maintain an array of errors that are generated during the parsing
     getter errors
@@ -18,6 +20,8 @@ module Ked
       @current_token = @lexer.get_next_token
       @peek_token = @lexer.get_next_token
       @errors = [] of String
+      @prefix_parse_functions = {} of TokenType => (-> AST::Expression)
+      @infix_parse_functions = {} of TokenType => (AST::Expression -> AST::Expression)
     end
 
     # Read the next token from the Lexer and update both the current and peek tokens accordingly.
@@ -120,6 +124,16 @@ module Ked
         @errors << builder.to_s
         false
       end
+    end
+
+    # Add a method to the prefix_parse_functions map for a given token
+    def register_prefix(token_type : TokenType, function : (-> AST::Expression))
+      @prefix_parse_functions[token_type] = function
+    end
+
+    # Add a method to the infix_parse_functions map for a given token
+    def register_infix(token_type : TokenType, function : (AST::Expression -> AST::Expression))
+      @infix_parse_functions[token_type] = function
     end
   end
 end
