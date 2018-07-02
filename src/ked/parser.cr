@@ -108,7 +108,16 @@ module Ked
         self.get_next_token
         true
       else
-        @errors << "ParserError in #{@peek_token.file_name} at line #{@peek_token.line_num} char #{@peek_token.char_num}: Expected #{token_type.to_s}, received #{@peek_token.token_type.to_s}"
+        # Build up a good error message
+        builder = String::Builder.new
+        builder << "ParserError in #{@peek_token.file_name} at line #{@peek_token.line_num} char #{@peek_token.char_num}:\n"
+        builder << @lexer.input[@peek_token.line_num - 1]
+        builder << "\n"
+        builder << " " * (@peek_token.char_num - 1)
+        builder << "^\n"
+        builder << "Expected #{token_type}, received #{@peek_token.token_type}."
+        # Put the built string into the errors array
+        @errors << builder.to_s
         false
       end
     end

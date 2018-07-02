@@ -18,6 +18,10 @@ module Ked
     @current_line : String = ""           # Current line being read
     @current_char : Char = Ked::NULL_CHAR # Current character being examined
 
+    # Getters
+    # An array of lines in the file currently being lexed
+    getter input
+
     # Create the Lexer by passing in a File descriptor.
     #
     # The File descriptor will be used to generate an array of Strings representing each line of the file, as well as provide a file name to pass to all Token instances.
